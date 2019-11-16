@@ -70,7 +70,7 @@
 
 
 
-  <meta name="keywords" content="Java进阶,">
+  <meta name="keywords" content="Spring,">
 
 
 
@@ -81,18 +81,21 @@
 
 
 
-<meta name="description" content="Java中的正则表达式概念：什么是正则表达式 简单说就是一组规则，类似日期格式化设置模式  yyyy-MM-dd 不是Java特有的一个东西，不同的开发语言有不同程度的支持 规则 字符串直接匹配      例如 “abc”    匹配 “abc”,  [abc]">
-<meta name="keywords" content="Java进阶">
+<meta name="description" content="最近需要做一个Java后台的系统日志功能，由于以前从来没有做过，便去网上查阅资料，尝试着做一下 大体思路： 通过AOP在Controller之前进行切面，新建一个自定义注解，然后在AOP配置里面设置当前操作的模块和功能，然后设置进日志的实体类中，最后保存到数据库中即可完成">
+<meta name="keywords" content="Spring">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java正则表达式">
-<meta property="og:url" content="https://www.ifueen.com/advanced/Java正则表达式.html">
+<meta property="og:title" content="Aop实现Java后台系统日志">
+<meta property="og:url" content="https://www.ifueen.com/spring/AOP实现Java后台系统日志.html">
 <meta property="og:site_name" content="我将会去远航">
-<meta property="og:description" content="Java中的正则表达式概念：什么是正则表达式 简单说就是一组规则，类似日期格式化设置模式  yyyy-MM-dd 不是Java特有的一个东西，不同的开发语言有不同程度的支持 规则 字符串直接匹配      例如 “abc”    匹配 “abc”,  [abc]">
+<meta property="og:description" content="最近需要做一个Java后台的系统日志功能，由于以前从来没有做过，便去网上查阅资料，尝试着做一下 大体思路： 通过AOP在Controller之前进行切面，新建一个自定义注解，然后在AOP配置里面设置当前操作的模块和功能，然后设置进日志的实体类中，最后保存到数据库中即可完成">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-22T13:25:32.608Z">
+<meta property="og:image" content="https://s2.ax1x.com/2019/11/16/M0zidK.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/11/16/M0zWex.png">
+<meta property="og:updated_time" content="2019-11-16T11:41:12.165Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java正则表达式">
-<meta name="twitter:description" content="Java中的正则表达式概念：什么是正则表达式 简单说就是一组规则，类似日期格式化设置模式  yyyy-MM-dd 不是Java特有的一个东西，不同的开发语言有不同程度的支持 规则 字符串直接匹配      例如 “abc”    匹配 “abc”,  [abc]">
+<meta name="twitter:title" content="Aop实现Java后台系统日志">
+<meta name="twitter:description" content="最近需要做一个Java后台的系统日志功能，由于以前从来没有做过，便去网上查阅资料，尝试着做一下 大体思路： 通过AOP在Controller之前进行切面，新建一个自定义注解，然后在AOP配置里面设置当前操作的模块和功能，然后设置进日志的实体类中，最后保存到数据库中即可完成">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/11/16/M0zidK.png">
 
 
 
@@ -122,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="https://www.ifueen.com/advanced/Java正则表达式.html">
+  <link rel="canonical" href="https://www.ifueen.com/spring/AOP实现Java后台系统日志.html">
 
 
 
 
 
-  <title>Java正则表达式 | 我将会去远航</title>
+  <title>Aop实现Java后台系统日志 | 我将会去远航</title>
   
 
 
@@ -298,7 +301,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.ifueen.com/advanced/Java正则表达式.html">
+    <link itemprop="mainEntityOfPage" href="https://www.ifueen.com/spring/AOP实现Java后台系统日志.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Fueen">
@@ -315,7 +318,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Java正则表达式</h1>
+          <h1 class="post-title" itemprop="name headline">Aop实现Java后台系统日志</h1>
         
 
         <div class="post-meta">
@@ -330,8 +333,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-22T21:12:40+08:00">
-                2019-07-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-16T19:08:21+08:00">
+                2019-11-16
               </time>
             
 
@@ -353,8 +356,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java进阶/" itemprop="url" rel="index">
-                    <span itemprop="name">Java进阶</span>
+                  <a href="/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
                   </a>
                 </span>
 
@@ -371,8 +374,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/advanced/Java正则表达式.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/advanced/Java正则表达式.html" itemprop="commentCount"></span>
+                <a href="/spring/AOP实现Java后台系统日志.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/spring/AOP实现Java后台系统日志.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -405,31 +408,32 @@
       
 
       
-        <h2 id="Java中的正则表达式"><a href="#Java中的正则表达式" class="headerlink" title="Java中的正则表达式"></a>Java中的正则表达式</h2><h3 id="概念："><a href="#概念：" class="headerlink" title="概念："></a>概念：</h3><p>什么是正则表达式</p>
-<p>简单说就是一组规则，类似日期格式化设置模式  yyyy-MM-dd</p>
-<p>不是Java特有的一个东西，不同的开发语言有不同程度的支持</p>
-<h3 id="规则"><a href="#规则" class="headerlink" title="规则"></a>规则</h3><ol>
-<li>字符串直接匹配    </li>
-</ol>
-<p>例如 “abc”    匹配 “abc”, </p>
-<p>[abc]</p>
+        <p>最近需要做一个Java后台的系统日志功能，由于以前从来没有做过，便去网上查阅资料，尝试着做一下</p>
+<p>大体思路：</p>
+<p>通过AOP在Controller之前进行切面，新建一个自定义注解，然后在AOP配置里面设置当前操作的模块和功能，然后设置进日志的实体类中，最后保存到数据库中即可完成</p>
 <a id="more"></a>
 
-<ol start="2">
-<li>表示一类事物</li>
-</ol>
-<p>例如 ：</p>
-<p>[0-9]    表示的是0-9的任意一个数字</p>
-<p>[a-z]    表示的任意的一个小写字母</p>
-<p>[3578]  表示可以是任意的3或5或7或8</p>
-<ol start="3">
-<li>数量</li>
-</ol>
-<p>例如    </p>
-<p>[0-9]{11}   表示任意的11位数字</p>
-<p>[0-9]{6,18}  表示一个范围数字至少6位不大于18位</p>
-<h3 id="示例Demo"><a href="#示例Demo" class="headerlink" title="示例Demo"></a>示例Demo</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.ifueen.ZZ;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ZZ</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		String pNum = <span class="string">"13759863548"</span>;		<span class="comment">//输入进行验证的电话</span></span><br><span class="line"></span><br><span class="line">		String regx = <span class="string">"[0-9]&#123;11&#125;"</span>;		<span class="comment">//给出验证规则</span></span><br><span class="line">		</span><br><span class="line">		<span class="keyword">boolean</span> matches = pNum.matches(regx);		<span class="comment">//将电话放进来验证</span></span><br><span class="line">		System.out.println(matches);		<span class="comment">//打印输出</span></span><br><span class="line">		</span><br><span class="line">		String str = <span class="string">"137XCVB3548"</span>;</span><br><span class="line">		String replaceAll = str.replaceAll(<span class="string">"[a-zA-Z]"</span>, <span class="string">"*"</span>);		<span class="comment">//设置规则并验证是否符合</span></span><br><span class="line">		System.out.println(replaceAll);</span><br><span class="line">		</span><br><span class="line">		str = <span class="string">"137,XCVB,3548"</span>;</span><br><span class="line">		</span><br><span class="line">		String[] split = str.split(<span class="string">","</span>);		<span class="comment">//根据给定正则表达式的匹配拆分此字符串</span></span><br><span class="line">		<span class="keyword">for</span> (String string : split) &#123;</span><br><span class="line">			System.out.println(string);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		String num = <span class="string">"18469357869"</span>;</span><br><span class="line">		String reg = <span class="string">"1[3-9][0-9]&#123;9&#125;"</span>;			<span class="comment">//设计正则表达式的规则</span></span><br><span class="line">		<span class="keyword">boolean</span> matches2 = num.matches(reg);		<span class="comment">//将字符串和规则进行匹配</span></span><br><span class="line">		System.out.println(matches2);</span><br><span class="line">		</span><br><span class="line">		String s3 = <span class="string">"13589642563"</span>;</span><br><span class="line">		<span class="comment">//使用给定的 replacement 替换此字符串所有匹配给定的正则表达式的子字符串</span></span><br><span class="line">		String s4 = s3.replaceAll(<span class="string">"([0-9]&#123;3&#125;)([0-9]&#123;4&#125;)([0-9]&#123;4&#125;)"</span>,<span class="string">"$1****$2"</span>);	</span><br><span class="line">		</span><br><span class="line">		System.out.println(s4);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//身份证的正则表达式规则</span></span><br><span class="line">		String card = <span class="string">"^[1-9]\\d&#123;5&#125;[1-9]\\d&#123;3&#125;((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d&#123;3&#125;([\\d|x|X]&#123;1&#125;)$"</span>;</span><br><span class="line">		String cardId = <span class="string">"01058919960215854x"</span>;</span><br><span class="line">		<span class="keyword">boolean</span> matches3 = cardId.matches(card);		<span class="comment">//进行匹配</span></span><br><span class="line">		System.out.println(matches3);		<span class="comment">//输出结果</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>首先自定义一个注解：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.sure.crm.web.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 系统日志的自定义注解</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Target</span>(&#123;ElementType.PARAMETER, ElementType.METHOD&#125;)</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> SystemLog &#123;</span><br><span class="line">    <span class="function">String <span class="title">module</span><span class="params">()</span>  <span class="keyword">default</span> ""</span>;</span><br><span class="line">    <span class="function">String <span class="title">methods</span><span class="params">()</span>  <span class="keyword">default</span> ""</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<p>然后在根据自己的情况去配置AOP</p>
+<p>在pom.xml中引入依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--aop的包--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-aop<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.2.5.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--切面的一个包(织入)--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.aspectj<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>aspectjweaver<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.8.8<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在applicationContext-MVC中配置</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- aop配置 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">aop:aspectj-autoproxy</span> <span class="attr">proxy-target-class</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 扫描包支持 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"aopLogConfig"</span> <span class="attr">class</span>=<span class="string">"com.sure.crm.web.config.AopLogConfig"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>然后写AOP的配置类，在这里对Controller切一下，保存日志</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.sure.crm.web.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.sure.crm.domain.Employee;</span><br><span class="line"><span class="keyword">import</span> com.sure.crm.domain.LogEntity;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.sure.crm.service.LogService;</span><br><span class="line"><span class="keyword">import</span> com.sure.shiro.UserContext;</span><br><span class="line"><span class="keyword">import</span> org.aspectj.lang.ProceedingJoinPoint;</span><br><span class="line"><span class="keyword">import</span> org.aspectj.lang.Signature;</span><br><span class="line"><span class="keyword">import</span> org.aspectj.lang.annotation.Around;</span><br><span class="line"><span class="keyword">import</span> org.aspectj.lang.annotation.Aspect;</span><br><span class="line"><span class="keyword">import</span> org.aspectj.lang.annotation.Pointcut;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.aspectj.lang.reflect.MethodSignature;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.context.request.RequestContextHolder;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.context.request.ServletRequestAttributes;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">import</span> java.text.SimpleDateFormat;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Aop日志的配置</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AopLogConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//注入service,用来将日志信息保存在数据库</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> LogService logservice;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//配置接入点</span></span><br><span class="line">    <span class="meta">@Pointcut</span>(<span class="string">"execution(* com.sure.crm.web.controller..*.*(..))"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">controllerAspect</span><span class="params">()</span></span>&#123;&#125;<span class="comment">//定义一个切入点</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Around</span>(<span class="string">"controllerAspect()"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">around</span><span class="params">(ProceedingJoinPoint pjp)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//日志实体对象</span></span><br><span class="line">        LogEntity log = <span class="keyword">new</span> LogEntity();</span><br><span class="line">        <span class="comment">//获取登录用户账户</span></span><br><span class="line">        HttpServletRequest request = ((ServletRequestAttributes) 				 RequestContextHolder.getRequestAttributes()).getRequest();</span><br><span class="line">        <span class="comment">//拿到当前用户，我是通过shiro的主体来取的，各自根据各自情况来进行设置</span></span><br><span class="line">        Employee user = UserContext.getUser();</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> != user)&#123;</span><br><span class="line">        	<span class="comment">//设置当前用户名</span></span><br><span class="line">            String name = user.getName();</span><br><span class="line">            log.setUSERID(name);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//获取系统时间</span></span><br><span class="line">        String time = <span class="keyword">new</span> SimpleDateFormat(<span class="string">"YYYY-MM-dd HH:mm:ss"</span>).format(<span class="keyword">new</span> Date());</span><br><span class="line">        log.setDATA(time);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//获取客户端ip</span></span><br><span class="line">        String ip = request.getRemoteAddr();</span><br><span class="line">        log.setIP(ip);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//方法通知前获取时间,来计算模块执行时间的</span></span><br><span class="line">        <span class="keyword">long</span> start = System.currentTimeMillis();</span><br><span class="line">        <span class="comment">// 拦截的实体类,就是当前正在执行的controller</span></span><br><span class="line">        Object target = pjp.getTarget();</span><br><span class="line">        <span class="comment">// 拦截的方法名称,当前正在执行的方法</span></span><br><span class="line">        String methodName = pjp.getSignature().getName();</span><br><span class="line">        <span class="comment">// 拦截的方法参数</span></span><br><span class="line">        Object[] args = pjp.getArgs();</span><br><span class="line">        <span class="comment">// 拦截的放参数类型</span></span><br><span class="line">        Signature sig = pjp.getSignature();</span><br><span class="line">        MethodSignature msig = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">if</span> (!(sig <span class="keyword">instanceof</span> MethodSignature)) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"该注解只能用于方法"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        msig = (MethodSignature) sig;</span><br><span class="line">        Class[] parameterTypes = msig.getMethod().getParameterTypes();</span><br><span class="line"></span><br><span class="line">        Object object = <span class="keyword">null</span>;</span><br><span class="line">        <span class="comment">// 获得被拦截的方法</span></span><br><span class="line">        Method method = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            method = target.getClass().getMethod(methodName, parameterTypes);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (NoSuchMethodException e1) &#123;</span><br><span class="line">            <span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">            e1.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (SecurityException e1) &#123;</span><br><span class="line">            <span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">            e1.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(method);</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> != method) &#123;</span><br><span class="line">            <span class="comment">// 判断是否包含自定义的注解，说明一下这里的SystemLog就是我自己自定义的注解</span></span><br><span class="line">            <span class="keyword">if</span> (method.isAnnotationPresent(SystemLog.class)) &#123;</span><br><span class="line">                SystemLog systemlog = method.getAnnotation(SystemLog.class);</span><br><span class="line">                log.setMODULE(systemlog.<span class="keyword">module</span>());</span><br><span class="line">                log.setMETHOD(systemlog.methods());</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    object = pjp.proceed();</span><br><span class="line">                    <span class="keyword">long</span> end = System.currentTimeMillis();</span><br><span class="line">                    <span class="comment">//将计算好的时间保存在实体中</span></span><br><span class="line">                    log.setRSPONSE_DATA(<span class="string">""</span>+(end-start));</span><br><span class="line">                    log.setCOMMITE(<span class="string">"执行成功！"</span>);</span><br><span class="line">                    <span class="comment">//保存进数据库</span></span><br><span class="line">                    logservice.save(log);</span><br><span class="line">                    <span class="comment">/*System.out.println("没切完");*/</span></span><br><span class="line">                &#125; <span class="keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">                    <span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">                    <span class="keyword">long</span> end = System.currentTimeMillis();</span><br><span class="line">                    log.setRSPONSE_DATA(<span class="string">""</span>+(end-start));</span><br><span class="line">                    log.setCOMMITE(<span class="string">"执行失败"</span>);</span><br><span class="line">                    logservice.save(log);</span><br><span class="line">                    <span class="comment">/*System.out.println("切切切");*/</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;<span class="comment">//没有包含注解</span></span><br><span class="line">                object = pjp.proceed();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123; <span class="comment">//不需要拦截直接执行</span></span><br><span class="line">            object = pjp.proceed();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">/*System.out.println("切完了");*/</span></span><br><span class="line">        <span class="keyword">return</span> object;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>数据库中新建一张表，用来存放日志信息，结构如下</p>
+<p><img src="https://s2.ax1x.com/2019/11/16/M0zidK.png" alt></p>
+<p>当然还需要Domain类，数据库的表都在这了，实体类中一一对应起来写就可以了，然后写增删改查的方法</p>
+<p>最后在生成一个查看日志的Controller类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.sure.crm.web.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.sure.AjaxResult;</span><br><span class="line"><span class="keyword">import</span> com.sure.PageList;</span><br><span class="line"><span class="keyword">import</span> com.sure.crm.domain.LogEntity;</span><br><span class="line"><span class="keyword">import</span> com.sure.crm.query.LogEntityQuery;</span><br><span class="line"><span class="keyword">import</span> com.sure.crm.service.LogService;</span><br><span class="line"><span class="keyword">import</span> com.sure.crm.web.config.SystemLog;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 配置系统日志的Controller</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@CrossOrigin</span></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/log"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AopLogController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> LogService logService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="meta">@RequestMapping</span>(value = <span class="string">"/queryPage"</span>,method = RequestMethod.PATCH)</span><br><span class="line">    <span class="meta">@SystemLog</span>(<span class="keyword">module</span> = <span class="string">"系统日志"</span>,methods = <span class="string">"日志管理-查询日志"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> PageList&lt;LogEntity&gt; <span class="title">findLog</span><span class="params">(@RequestBody LogEntityQuery query)</span></span>&#123;</span><br><span class="line">        <span class="comment">//这是我自己封装的一个类,一般不需要，根据各自情况来设置返回值</span></span><br><span class="line">        PageList&lt;LogEntity&gt; pageList = logService.queryPage(query);</span><br><span class="line">        <span class="keyword">return</span> pageList;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后前台页面就访问请求，通过表格把数据展示出来即可完成</p>
+<p><img src="https://s2.ax1x.com/2019/11/16/M0zWex.png" alt></p>
 
       
     </div>
@@ -479,7 +483,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://www.ifueen.com/advanced/Java正则表达式.html" title="Java正则表达式">https://www.ifueen.com/advanced/Java正则表达式.html</a>
+    <a href="https://www.ifueen.com/spring/AOP实现Java后台系统日志.html" title="Aop实现Java后台系统日志">https://www.ifueen.com/spring/AOP实现Java后台系统日志.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -494,7 +498,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Java进阶/" rel="tag"><i class="fas fa-broom"></i> Java进阶</a>
+            <a href="/tags/Spring/" rel="tag"><i class="fas fa-broom"></i> Spring</a>
           
         </div>
       
@@ -507,8 +511,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/object/Java面向对象之内部类.html" rel="next" title="Java面向对象之内部类">
-                <i class="fa fa-chevron-left"></i> Java面向对象之内部类
+              <a href="/mybatis/MyBatis报错问题.html" rel="next" title="MyBatis报错问题">
+                <i class="fa fa-chevron-left"></i> MyBatis报错问题
               </a>
             
           </div>
@@ -516,10 +520,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/advanced/Java异常及处理.html" rel="prev" title="Java异常及处理">
-                Java异常及处理 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -574,17 +574,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -664,22 +655,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java中的正则表达式"><span class="nav-number">1.</span> <span class="nav-text">Java中的正则表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念："><span class="nav-number">1.1.</span> <span class="nav-text">概念：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#规则"><span class="nav-number">1.2.</span> <span class="nav-text">规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例Demo"><span class="nav-number">1.3.</span> <span class="nav-text">示例Demo</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
