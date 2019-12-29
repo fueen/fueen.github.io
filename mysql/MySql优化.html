@@ -70,6 +70,7 @@
 
 
 
+  <meta name="keywords" content="MySQL,">
 
 
 
@@ -79,16 +80,19 @@
 
 
 
-<meta name="description" content="无论自由相爱与否，人人死而平等   希望死亡不是你的终结，憧憬光明，就不会惧怕黑暗">
-<meta property="og:type" content="website">
-<meta property="og:title" content="我将会去远航">
-<meta property="og:url" content="https://www.ifueen.com/archives/2019/page/2/index.html">
+
+<meta name="description" content="MySql性能优化策略[toc] 关系型数据库的优化方案关于MySQL的优化，大体方案可以分为以下步骤  找出执行效率低的Sql 分析慢的Sql 进行优化  定位慢查询找出执行效率慢的SQL(定位慢SQL)首先要明白原理，实际上我们在数据库上面所做的操作都会被日志记录下来，我们在定位慢查询就需要去通过日志记录来找到到底是哪条SQL效率慢 查询数据库状态的命令">
+<meta name="keywords" content="MySQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL性能优化方案">
+<meta property="og:url" content="https://www.ifueen.com/mysql/MySql优化.html">
 <meta property="og:site_name" content="我将会去远航">
-<meta property="og:description" content="无论自由相爱与否，人人死而平等   希望死亡不是你的终结，憧憬光明，就不会惧怕黑暗">
+<meta property="og:description" content="MySql性能优化策略[toc] 关系型数据库的优化方案关于MySQL的优化，大体方案可以分为以下步骤  找出执行效率低的Sql 分析慢的Sql 进行优化  定位慢查询找出执行效率慢的SQL(定位慢SQL)首先要明白原理，实际上我们在数据库上面所做的操作都会被日志记录下来，我们在定位慢查询就需要去通过日志记录来找到到底是哪条SQL效率慢 查询数据库状态的命令">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-12-29T12:25:14.960Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="我将会去远航">
-<meta name="twitter:description" content="无论自由相爱与否，人人死而平等   希望死亡不是你的终结，憧憬光明，就不会惧怕黑暗">
+<meta name="twitter:title" content="MySQL性能优化方案">
+<meta name="twitter:description" content="MySql性能优化策略[toc] 关系型数据库的优化方案关于MySQL的优化，大体方案可以分为以下步骤  找出执行效率低的Sql 分析慢的Sql 进行优化  定位慢查询找出执行效率慢的SQL(定位慢SQL)首先要明白原理，实际上我们在数据库上面所做的操作都会被日志记录下来，我们在定位慢查询就需要去通过日志记录来找到到底是哪条SQL效率慢 查询数据库状态的命令">
 
 
 
@@ -118,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="https://www.ifueen.com/archives/2019/page/2/">
+  <link rel="canonical" href="https://www.ifueen.com/mysql/MySql优化.html">
 
 
 
 
 
-  <title>归档 | 我将会去远航</title>
+  <title>MySQL性能优化方案 | 我将会去远航</title>
   
 
 
@@ -143,7 +147,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 	<a href="https://github.com/fueen" class="github-corner" aria-label="View source on GitHub">
 	<svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true">
@@ -280,390 +284,314 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.ifueen.com/mysql/MySql优化.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fueen">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我将会去远航">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
-         
+          <h1 class="post-title" itemprop="name headline">MySQL性能优化方案</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+			
+			
+			
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-29T19:24:21+08:00">
+                2019-12-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        很好! 目前共计 84 篇日志。 继续努力。
-      </span>
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySQL/" itemprop="url" rel="index">
+                    <span itemprop="name">MySQL</span>
+                  </a>
+                </span>
 
-      
-
-        
-        
-        
-
-        
+                
+                
+              
+            </span>
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2019">2019</h1>
-          </div>
-        
-        
 
-        
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/mysql/MySql优化.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/mysql/MySql优化.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/spring/一次项目总结.html" itemprop="url">
-              
-                <span itemprop="name">记一次项目总结</span>
-              
-            </a>
-        
-      </h2>
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">阅读量<i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-10-28T15:08:21+08:00" content="2019-10-28">
-          10-28
-        </time>
-      </div>
+          
 
-    </header>
-  </article>
+          
 
+        </div>
+      </header>
+    
 
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/spring/Spring集成Shiro.html" itemprop="url">
-              
-                <span itemprop="name">Spring集成Shiro</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-10-20T15:08:21+08:00" content="2019-10-20">
-          10-20
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/essay/永远的蝴蝶.html" itemprop="url">
-              
-                <span itemprop="name">永远的蝴蝶</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-10-17T20:27:44+08:00" content="2019-10-17">
-          10-17
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
+      
+        <h1 id="MySql性能优化策略"><a href="#MySql性能优化策略" class="headerlink" title="MySql性能优化策略"></a>MySql性能优化策略</h1><p>[toc]</p>
+<h2 id="关系型数据库的优化方案"><a href="#关系型数据库的优化方案" class="headerlink" title="关系型数据库的优化方案"></a>关系型数据库的优化方案</h2><p>关于MySQL的优化，大体方案可以分为以下步骤</p>
+<ol>
+<li>找出执行效率低的Sql</li>
+<li>分析慢的Sql</li>
+<li>进行优化</li>
+</ol>
+<h2 id="定位慢查询"><a href="#定位慢查询" class="headerlink" title="定位慢查询"></a>定位慢查询</h2><h4 id="找出执行效率慢的SQL-定位慢SQL"><a href="#找出执行效率慢的SQL-定位慢SQL" class="headerlink" title="找出执行效率慢的SQL(定位慢SQL)"></a>找出执行效率慢的SQL(定位慢SQL)</h4><p>首先要明白原理，实际上我们在数据库上面所做的操作都会被日志记录下来，我们在定位慢查询就需要去通过日志记录来找到到底是哪条SQL效率慢</p>
+<p><strong>查询数据库状态的命令</strong></p>
+<a id="more"></a>
 
-        
-        
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">运行了多久 <span class="keyword">show</span> <span class="keyword">status</span> <span class="keyword">like</span> <span class="string">'uptime'</span>;</span><br><span class="line"></span><br><span class="line">CRUD的执行次数 </span><br><span class="line"><span class="keyword">show</span> <span class="keyword">status</span> <span class="keyword">like</span> <span class="string">'%Com_select%'</span></span><br><span class="line"><span class="keyword">show</span> <span class="keyword">status</span> <span class="keyword">like</span> <span class="string">'%Com_insert%'</span></span><br><span class="line"><span class="keyword">show</span> <span class="keyword">status</span> <span class="keyword">like</span> <span class="string">'%Com_update%'</span></span><br><span class="line"><span class="keyword">show</span> <span class="keyword">status</span> <span class="keyword">like</span> <span class="string">'%Com_delete%'</span></span><br><span class="line"></span><br><span class="line">查询所有的连接数</span><br><span class="line"><span class="keyword">show</span> <span class="keyword">status</span> <span class="keyword">like</span> <span class="string">'connections'</span></span><br><span class="line"></span><br><span class="line">查询慢查询次数(数据库默认是<span class="number">10</span>S，可以通过命令设置)</span><br><span class="line"><span class="keyword">show</span> <span class="keyword">status</span> <span class="keyword">like</span> <span class="string">'slow_queries'</span> </span><br><span class="line"></span><br><span class="line">查看和修改慢查询时间阈值</span><br><span class="line"><span class="keyword">show</span> <span class="keyword">variables</span> <span class="keyword">like</span> ‘long_query_time’ ; //可以显示当前慢查询时间</span><br><span class="line"><span class="keyword">set</span> long_query_time=<span class="number">1</span> ;//可以修改慢查询时间</span><br></pre></td></tr></table></figure>
 
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/spring/解决noSerializer问题.html" itemprop="url">
-              
-                <span itemprop="name">解决noSerializer问题</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-10-17T19:08:21+08:00" content="2019-10-17">
-          10-17
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+<h4 id="开启慢查询记录日志"><a href="#开启慢查询记录日志" class="headerlink" title="开启慢查询记录日志"></a>开启慢查询记录日志</h4><p>因为我们的SQL服务默认是没有开启满记录日志的，所以我们并不能查看慢查询相关的记录，需要我们手动开启</p>
+<p>进入到mysql文件夹下的bin目录，通过cmd运行以下命令：<strong>mysqld.exe –safe-mode –slow-query-log</strong></p>
+<p>就可以开启慢查询记录的日志</p>
+<p>慢记录日志的默认输出地址在my.ini文件中，通常默认是在C盘</p>
+<p>慢记录一般都会在开发和测试阶段开启，不要等到上线后再去检查</p>
+<h4 id="分析Sql语句"><a href="#分析Sql语句" class="headerlink" title="分析Sql语句"></a>分析Sql语句</h4><p>通过 explain 语句可以分析Sql语句</p>
+<h2 id="单机优化"><a href="#单机优化" class="headerlink" title="单机优化"></a>单机优化</h2><h3 id="通过表结构设计"><a href="#通过表结构设计" class="headerlink" title="通过表结构设计"></a>通过表结构设计</h3><h4 id="数据库设计三范式"><a href="#数据库设计三范式" class="headerlink" title="数据库设计三范式"></a>数据库设计三范式</h4><p>这是数据库在设计之初我们默认都要遵守的规则</p>
+<p><strong>第一范式：数据表中的列是不可分割的一个整体</strong></p>
+<p><strong>第二范式：表中的记录都需要一个唯一标识(通常是主键)</strong></p>
+<p><strong>第三范式：表中不要有冗余数据，大体意思就是一张表中不能出现另一张表除主键之外的字段</strong></p>
+<p>反三范式设计</p>
+<p>有时候为了提高效率，有时候就必须要通过反三范式来进行设计，适当的保留冗余数据</p>
+<p>对于存储设计，我们通常有两种方式来进行设置</p>
+<p><strong>定长：会根据数据的类型来进行空间的分配，是固定的</strong></p>
+<p><strong>边长：根据存储数据的大小来，用多少就分配多少</strong></p>
+<h4 id="存储引擎"><a href="#存储引擎" class="headerlink" title="存储引擎"></a>存储引擎</h4><blockquote>
+<p>数据库的存储引擎分类：Innodb,MyISAM</p>
+</blockquote>
+<h4 id="Innodb和MyISAM的区别"><a href="#Innodb和MyISAM的区别" class="headerlink" title="Innodb和MyISAM的区别"></a>Innodb和MyISAM的区别</h4><ul>
+<li>Innodb支持事务，MyISAM不支持事务</li>
+<li>MyISAM查询和添加较块，Innodb查询比较慢</li>
+<li>Innodb支持外键，MyISAM不支持外键</li>
+<li>锁机制MyISAM用的是表锁，Innodb用的是行锁</li>
+<li>MyISAM支持全文索引，Innodb不支持全文索引</li>
+</ul>
+<h3 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h3><p>首先我们要弄清楚一个概念：什么是索引，什么时候用索引？</p>
+<p>索引是数据库优化的时候最物美价廉的东西，官方概念称是帮助MySQL提高查找效率的一种数据结构，能够帮我们快速的定位查找到相应的位置</p>
+<p>我们一般在数据量过多的表中或者需要查询频率比较高的字段上加上索引</p>
+<blockquote>
+<p>注意：对于增删改操作比较多的字段，不建议使用索引，即使查询频率较高</p>
+</blockquote>
+<p><strong>MyISAM和Innodb都只支持Btree索引算法，而MEMORY/HEAP同时支持Btree和HASH算法</strong></p>
+<h4 id="索引分类"><a href="#索引分类" class="headerlink" title="索引分类"></a>索引分类</h4><ul>
+<li>普通索引：允许重复的出现，可以在任何字段上面添加</li>
+<li>唯一索引：要求添加索引的字段里面的内容必须是唯一的(如：身份证、电话号码、游戏ID、QQ号)，允许内容为空</li>
+<li>主键索引：只能在主键上面添加的索引，要求非空且唯一</li>
+<li>全文索引：用来堆表中的文本域(bigtext,char,text)进行索引，全文索引针对MyISAM有用</li>
+</ul>
+<p>此外，我们害可以创建复合索引(多列索引，就是在多个列上面创建一样的索引</p>
+<h4 id="复合索引使用事项："><a href="#复合索引使用事项：" class="headerlink" title="复合索引使用事项："></a>复合索引使用事项：</h4><ul>
+<li>没有使用第一部分就不会使用索引</li>
+<li>对于使用了like的查询，只有前置匹配才可以使用到复合索引</li>
+<li>如果条件中存在or，则索引失效</li>
+<li>如果条件中存在&lt;&gt;，则索引失效</li>
+<li>如果列类型是字符串，那么一定要用引号引起来，否则也会导致索引失效</li>
+</ul>
+<h3 id="分表"><a href="#分表" class="headerlink" title="分表"></a>分表</h3><p>分表的方式有垂直分表和水平分表两种</p>
+<h4 id="垂直分表"><a href="#垂直分表" class="headerlink" title="垂直分表"></a>垂直分表</h4><p>垂直分表是根据字段进行分表，我们通常会遇到这种需求，有些表记录的数据并不是很多，但是字段却非常的多，每次查询起来会执行大量的I/O，影响性能，这时候我们就可以进行垂直分表</p>
+<p>比如：现在一个用户有许多字段信息，但是有些又不太常用，就可以通过id，把姓名，电话，地址等分一个表，把签名，收藏等通过id进行垂直分表，分为另一张表，两张表的id是同一个</p>
+<h4 id="水平分表"><a href="#水平分表" class="headerlink" title="水平分表"></a>水平分表</h4><p>水平分表是根据记录来进行分表，如果一个表的记录太多的话，不用想，自然会影响到查询的效率，比如上千万条，而且需要经常检索，那么我们就有必要进行水平分表了</p>
+<p>水平分表其实很好理解，比如一个一千万记录的表，我们可以根据记录数分成十张一百万的表，第一张就是一到一百万，一次往后…</p>
+<p>有时候会遇到这种需求，加入需要查询第五百万条到第八百三十二万条怎么办呢，这时候我们可以用UNION和UNION ALL来把结果集进行联合</p>
+<p>水平分表中的id我们可以通过主键自增、UUID、雪花算法等来进行求出</p>
+<p>最简单的一种hash算法：t_user+id%100(分表数)+1</p>
+<h3 id="SQL语句优化"><a href="#SQL语句优化" class="headerlink" title="SQL语句优化"></a>SQL语句优化</h3><h4 id="DDL优化"><a href="#DDL优化" class="headerlink" title="DDL优化"></a>DDL优化</h4><ul>
+<li>通过禁用索引来提供导入数据性能</li>
+<li>关闭唯一校验</li>
+<li>修改事务提交方式</li>
+</ul>
+<h4 id="DML优化"><a href="#DML优化" class="headerlink" title="DML优化"></a>DML优化</h4><blockquote>
+<p>将多条结构相关的sql语句合并味一条</p>
+</blockquote>
+<h4 id="DQL优化"><a href="#DQL优化" class="headerlink" title="DQL优化"></a>DQL优化</h4><ul>
+<li>order by优化，多用索引进行排序</li>
+<li>group by优化，在group by是使用order by null,取消默认排序</li>
+<li>subQuery嵌套优化，利用嵌套进行优化</li>
+<li><strong>limit优化(重要) 在分页条件那里尽量使用一个带索引的字段进行排序或者过滤比如：select * from test id&gt;4000 limit 5</strong></li>
+</ul>
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/spring/Spring注入和AOP.html" itemprop="url">
-              
-                <span itemprop="name">Spring注入和AOP</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-10-08T19:19:21+08:00" content="2019-10-08">
-          10-08
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/jpa/JPA进阶-事务隔离.html" itemprop="url">
-              
-                <span itemprop="name">JPA进阶-事务隔离</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-10-05T19:19:21+08:00" content="2019-10-05">
-          10-05
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/jpa/JPA进阶(二).html" itemprop="url">
-              
-                <span itemprop="name">JPA进阶(二)-对象关系映射</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-09-29T14:19:21+08:00" content="2019-09-29">
-          09-29
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/jpa/JPA进阶.html" itemprop="url">
-              
-                <span itemprop="name">JPA进阶-持久化状态</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-09-27T19:53:21+08:00" content="2019-09-27">
-          09-27
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/jpa/JPA基础使用.html" itemprop="url">
-              
-                <span itemprop="name">JPA基础使用</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-09-25T19:08:21+08:00" content="2019-09-25">
-          09-25
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/spring/Maven基础.html" itemprop="url">
-              
-                <span itemprop="name">Maven基础--初始Maven</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-09-23T19:08:21+08:00" content="2019-09-23">
-          09-23
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>❤赏点钱让我买杯快乐水8❤</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/weixinshoukuan.png" alt="Fueen 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/zhifubaoshoukuan.png" alt="Fueen 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Fueen
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.ifueen.com/mysql/MySql优化.html" title="MySQL性能优化方案">https://www.ifueen.com/mysql/MySql优化.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/MySQL/" rel="tag"><i class="fas fa-broom"></i> MySQL</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/share/2019这一年.html" rel="next" title="2019这一年...">
+                <i class="fa fa-chevron-left"></i> 2019这一年...
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/archives/2019/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/archives/2019/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/2019/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/archives/2019/page/9/">9</a><a class="extend next" rel="next" href="/archives/2019/page/3/"><i class="fa fa-angle-right"></i></a>
-  </nav>
+  </article>
 
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -671,6 +599,13 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
 
         </div>
         
@@ -691,8 +626,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -772,6 +716,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MySql性能优化策略"><span class="nav-number">1.</span> <span class="nav-text">MySql性能优化策略</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#关系型数据库的优化方案"><span class="nav-number">1.1.</span> <span class="nav-text">关系型数据库的优化方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定位慢查询"><span class="nav-number">1.2.</span> <span class="nav-text">定位慢查询</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#找出执行效率慢的SQL-定位慢SQL"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">找出执行效率慢的SQL(定位慢SQL)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#开启慢查询记录日志"><span class="nav-number">1.2.0.2.</span> <span class="nav-text">开启慢查询记录日志</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分析Sql语句"><span class="nav-number">1.2.0.3.</span> <span class="nav-text">分析Sql语句</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单机优化"><span class="nav-number">1.3.</span> <span class="nav-text">单机优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#通过表结构设计"><span class="nav-number">1.3.1.</span> <span class="nav-text">通过表结构设计</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据库设计三范式"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">数据库设计三范式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#存储引擎"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">存储引擎</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Innodb和MyISAM的区别"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">Innodb和MyISAM的区别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#索引"><span class="nav-number">1.3.2.</span> <span class="nav-text">索引</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#索引分类"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">索引分类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#复合索引使用事项："><span class="nav-number">1.3.2.2.</span> <span class="nav-text">复合索引使用事项：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分表"><span class="nav-number">1.3.3.</span> <span class="nav-text">分表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#垂直分表"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">垂直分表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#水平分表"><span class="nav-number">1.3.3.2.</span> <span class="nav-text">水平分表</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL语句优化"><span class="nav-number">1.3.4.</span> <span class="nav-text">SQL语句优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DDL优化"><span class="nav-number">1.3.4.1.</span> <span class="nav-text">DDL优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DML优化"><span class="nav-number">1.3.4.2.</span> <span class="nav-text">DML优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DQL优化"><span class="nav-number">1.3.4.3.</span> <span class="nav-text">DQL优化</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -955,6 +915,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
