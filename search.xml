@@ -892,6 +892,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[测测测测测]]></title>
+    <url>%2Fshare%2F%E6%B5%8B%E8%AF%95%E6%B5%8B%E8%AF%95.html</url>
+    <content type="text"><![CDATA[测测测测测测测测测]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[npm报错问题]]></title>
     <url>%2Ferror%2Fnpm%E6%8A%A5%E9%94%99%E9%97%AE%E9%A2%98.html</url>
     <content type="text"><![CDATA[因为在一次项目中需要安装模块，于是运行npm install命令，结果多次运行报错 1A complete log of this run can be fund in: C\Users\用户\AppData\Roaming\npm-cache_logs\2019-9-24T10_55_24_806Z-debug.log 网上找了许多原因说是清理缓存重新安装，没用，最后，直接找到解决办法找到你根目录下的node_modules文件夹将其删除 再清理缓存 1npm cache clean --force 重新安装(注：能用cnpm更好，cnpm是淘宝镜像所以速度会更快) 1npm install /cnpm install 然后问题基本就解决了]]></content>
