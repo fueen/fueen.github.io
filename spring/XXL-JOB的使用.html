@@ -70,7 +70,7 @@
 
 
 
-  <meta name="keywords" content="Java面向对象,">
+  <meta name="keywords" content="SpringBoot,">
 
 
 
@@ -81,18 +81,32 @@
 
 
 
-<meta name="description" content="在Java中，==和equals的区别是一道非常经典的面试题，两者让对象来进行比较，那么他们有什么区别呢？ ==1.==  是比较的值 ​            基本数据类型作比较时：比较的值 ​            引用数据类型做比较时：比较的是地址值">
-<meta name="keywords" content="Java面向对象">
+<meta name="description" content="[toc] 概述​    首先我们要知道什么是XXL-JOB？ ​    官方简介：XXL-JOB是一个分布式任务调度平台，其核心设计目标是开发迅速、学习简单、轻量级、易扩展。现已开放源代码并接入多家公司线上产品线，开箱即用 ​    XXL-JOB的有点特性： ​    1、简单：支持通过Web页面对任务进行CRUD操作，操作简单，一分钟上手； ​    2、动态：支持动态修改任务状态、启动/停">
+<meta name="keywords" content="SpringBoot">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java中==和equals的区别">
-<meta property="og:url" content="https://www.ifueen.com/object/Java中-和equals的区别.html">
+<meta property="og:title" content="XXL-JOB的使用">
+<meta property="og:url" content="https://www.ifueen.com/spring/XXL-JOB的使用.html">
 <meta property="og:site_name" content="我将会去远航">
-<meta property="og:description" content="在Java中，==和equals的区别是一道非常经典的面试题，两者让对象来进行比较，那么他们有什么区别呢？ ==1.==  是比较的值 ​            基本数据类型作比较时：比较的值 ​            引用数据类型做比较时：比较的是地址值">
+<meta property="og:description" content="[toc] 概述​    首先我们要知道什么是XXL-JOB？ ​    官方简介：XXL-JOB是一个分布式任务调度平台，其核心设计目标是开发迅速、学习简单、轻量级、易扩展。现已开放源代码并接入多家公司线上产品线，开箱即用 ​    XXL-JOB的有点特性： ​    1、简单：支持通过Web页面对任务进行CRUD操作，操作简单，一分钟上手； ​    2、动态：支持动态修改任务状态、启动/停">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-16T13:59:22.783Z">
+<meta property="og:image" content="https://s2.ax1x.com/2020/03/07/3XVidK.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/03/07/3XmEJU.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/03/07/3XmWmn.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/03/07/3XnZAP.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/03/07/3XuF8U.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/03/07/3XuaIP.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/03/07/3XKGWT.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/03/07/3XKclD.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/03/07/3XQ0G6.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/03/07/3Xl9L4.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/03/07/3X18HJ.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/03/07/3X15Dg.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/03/07/3X3k26.png">
+<meta property="og:updated_time" content="2020-03-07T06:48:13.508Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java中==和equals的区别">
-<meta name="twitter:description" content="在Java中，==和equals的区别是一道非常经典的面试题，两者让对象来进行比较，那么他们有什么区别呢？ ==1.==  是比较的值 ​            基本数据类型作比较时：比较的值 ​            引用数据类型做比较时：比较的是地址值">
+<meta name="twitter:title" content="XXL-JOB的使用">
+<meta name="twitter:description" content="[toc] 概述​    首先我们要知道什么是XXL-JOB？ ​    官方简介：XXL-JOB是一个分布式任务调度平台，其核心设计目标是开发迅速、学习简单、轻量级、易扩展。现已开放源代码并接入多家公司线上产品线，开箱即用 ​    XXL-JOB的有点特性： ​    1、简单：支持通过Web页面对任务进行CRUD操作，操作简单，一分钟上手； ​    2、动态：支持动态修改任务状态、启动/停">
+<meta name="twitter:image" content="https://s2.ax1x.com/2020/03/07/3XVidK.png">
 
 
 
@@ -122,13 +136,13 @@
 
 
 
-  <link rel="canonical" href="https://www.ifueen.com/object/Java中-和equals的区别.html">
+  <link rel="canonical" href="https://www.ifueen.com/spring/XXL-JOB的使用.html">
 
 
 
 
 
-  <title>Java中==和equals的区别 | 我将会去远航</title>
+  <title>XXL-JOB的使用 | 我将会去远航</title>
   
 
 
@@ -298,7 +312,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.ifueen.com/object/Java中-和equals的区别.html">
+    <link itemprop="mainEntityOfPage" href="https://www.ifueen.com/spring/XXL-JOB的使用.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Fueen">
@@ -315,7 +329,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Java中==和equals的区别</h1>
+          <h1 class="post-title" itemprop="name headline">XXL-JOB的使用</h1>
         
 
         <div class="post-meta">
@@ -330,8 +344,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-16T21:53:46+08:00">
-                2019-07-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-07T13:02:30+08:00">
+                2020-03-07
               </time>
             
 
@@ -353,8 +367,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java面向对象/" itemprop="url" rel="index">
-                    <span itemprop="name">Java面向对象</span>
+                  <a href="/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
                   </a>
                 </span>
 
@@ -371,8 +385,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/object/Java中-和equals的区别.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/object/Java中-和equals的区别.html" itemprop="commentCount"></span>
+                <a href="/spring/XXL-JOB的使用.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/spring/XXL-JOB的使用.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -405,18 +419,54 @@
       
 
       
-        <p><strong>在Java中，==和equals的区别是一道非常经典的面试题，两者让对象来进行比较，那么他们有什么区别呢？</strong></p>
-<h2 id><a href="#" class="headerlink" title="=="></a>==</h2><p>1.==  是比较的值</p>
-<p>​            基本数据类型作比较时：比较的值</p>
-<p>​            引用数据类型做比较时：比较的是地址值</p>
-<a id="more"></a>
+        <p>[toc]</p>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>​    首先我们要知道什么是XXL-JOB？</p>
+<p>​    官方简介：XXL-JOB是一个分布式任务调度平台，其核心设计目标是开发迅速、学习简单、轻量级、易扩展。现已开放源代码并接入多家公司线上产品线，开箱即用</p>
+<p>​    XXL-JOB的有点特性：</p>
+<p>​    1、简单：支持通过Web页面对任务进行CRUD操作，操作简单，一分钟上手；</p>
+<p>​    2、动态：支持动态修改任务状态、启动/停止任务，以及终止运行中任务，即时生效；<br>​    3、调度中心HA（中心式）：调度采用中心式设计，“调度中心”自研调度组件并支持集群部署，可保证调度中心HA；<br>​    4、执行器HA（分布式）：任务分布式执行，任务”执行器”支持集群部署，可保证任务执行HA；<br>​    5、注册中心: 执行器会周期性自动注册任务, 调度中心将会自动发现注册的任务并触发执行。同时，也支持手动录入执行器地址；<br>​    6、弹性扩容缩容：一旦有新执行器机器上线或者下线，下次调度时将会重新分配任务；<br>​    7、路由策略：执行器集群部署时提供丰富的路由策略，包括：第一个、最后一个、轮询、随机、一致性HASH、最不经常使用、最近最久未使用、故障转移、忙碌转移等；<br>​    8、故障转移：任务路由策略选择”故障转移”情况下，如果执行器集群中某一台机器故障，将会自动Failover切换到一台正常的执行器发送调度请求。<br>​    9、阻塞处理策略：调度过于密集执行器来不及处理时的处理策略，策略包括：单机串行（默认）、丢弃后续调度、覆盖之前调度；<br>​    10、任务超时控制：支持自定义任务超时时间，任务运行超时将会主动中断任务；<br>​    11、任务失败重试：支持自定义任务失败重试次数，当任务失败时将会按照预设的失败重试次数主动进行重试；其中分片任务支持分片粒度的失败重试；<br>​    12、任务失败告警；默认提供邮件方式失败告警，同时预留扩展接口，可方便的扩展短信、钉钉等告警方式；<br>​    13、分片广播任务：执行器集群部署时，任务路由策略选择”分片广播”情况下，一次任务调度将会广播触发集群中所有执行器执行一次任务，可根据分片参数开发分片任务；<br>​    14、动态分片：分片广播任务以执行器为维度进行分片，支持动态扩容执行器集群从而动态增加分片数量，协同进行业务处理；在进行大数据量业务操作时可显著提升任务处理能力和速度。<br>​    15、事件触发：除了”Cron方式”和”任务依赖方式”触发任务执行之外，支持基于事件的触发任务方式。调度中心提供触发任务单次执行的API服务，可根据业务事件灵活触发</p>
+<p>​    ……</p>
+<p>是目前主流的分布式任务调度平台，许多公司的产品业务都有XXL-JOB的接入</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>首先从GitHub上面将项目clone下来，如果网络问题导致速度慢也可以从Gitee上面拉取</p>
+<p>GitHub地址：<a href="https://github.com/xuxueli/xxl-job" target="_blank" rel="noopener">https://github.com/xuxueli/xxl-job</a></p>
+<p>Gitee地址：<a href="https://gitee.com/xuxueli0323/xxl-job" target="_blank" rel="noopener">https://gitee.com/xuxueli0323/xxl-job</a></p>
+<p>我从GitHub上面进行克隆</p>
+<p>  <img src="https://s2.ax1x.com/2020/03/07/3XVidK.png" alt></p>
+<p>下载好之后将压缩包解压，然后通过IDEA打开，将Maven编译好后项目结构如下</p>
+<p><img src="https://s2.ax1x.com/2020/03/07/3XmEJU.png" alt></p>
+<p>然后运行自带的tables_xxl_job.sql文件，在Navcation中去运行，生成需要的表</p>
+<p><img src="https://s2.ax1x.com/2020/03/07/3XmWmn.png" alt></p>
+<p>得到需要的基础表</p>
+<p><img src="https://s2.ax1x.com/2020/03/07/3XnZAP.png" alt></p>
+<p>打开xxl-job-admin模块，在application.properties中进行后台的配置</p>
+<p><img src="https://s2.ax1x.com/2020/03/07/3XuF8U.png" alt></p>
+<p><img src="https://s2.ax1x.com/2020/03/07/3XuaIP.png" alt></p>
+<blockquote>
+<p>注意在数据库地址哪里加上时区属性，否则乱码</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spring.datasource.url=jdbc:mysql://127.0.0.1:3306/xxl_job?Unicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC</span><br></pre></td></tr></table></figure>
 
-<h2 id="equals"><a href="#equals" class="headerlink" title="equals"></a>equals</h2><p>equals 是比较的对象【只要是对象就应该用equals】</p>
-<p>​            1.最初定义在Object类中，比较对象的</p>
-<p>​            2.每一个类型，比较对象的规则可能不能一样，每一个类可能去覆写</p>
-<p>​            3.定义好的类没有覆写过equals方法，则会直接调用到了Object中的equals方法,那么本质还是在使用==比较</p>
-<h2 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">_05HomeWork</span> </span>&#123;</span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">			<span class="comment">//== 比较</span></span><br><span class="line">			Test test = <span class="keyword">new</span> Test(<span class="string">"山泥若"</span>,<span class="number">28</span>);		<span class="comment">//实例化对象并给构造方法传入参数</span></span><br><span class="line">			Test test1 = <span class="keyword">new</span> Test(<span class="string">"山泥若"</span>,<span class="number">28</span>);</span><br><span class="line">			<span class="keyword">boolean</span> bl = test == test1;	<span class="comment">//将test和test1的引用地址值进行==比较</span></span><br><span class="line">			System.out.println(<span class="string">"==的结果"</span>+bl);		<span class="comment">//打印比较结果</span></span><br><span class="line">			test.name = <span class="string">"otto"</span>;</span><br><span class="line">			test1.name = <span class="string">"otto"</span>;</span><br><span class="line">			<span class="keyword">boolean</span> b2 = test.name == test1.name;</span><br><span class="line">			System.out.println(<span class="string">"==的结果"</span>+b2);</span><br><span class="line"></span><br><span class="line">			<span class="comment">//equlas比较</span></span><br><span class="line">			Test test2 = <span class="keyword">new</span> Test(<span class="string">"电棍"</span>,<span class="number">28</span>);		<span class="comment">//实例化对象并给构造方法传入参数</span></span><br><span class="line">			Test test3 = <span class="keyword">new</span> Test(<span class="string">"电棍"</span>,<span class="number">28</span>);</span><br><span class="line">			<span class="keyword">boolean</span> b3 = test.equals(test1);		<span class="comment">//将test2和test3的引用地址值进行equals比较</span></span><br><span class="line">			System.out.println(<span class="string">"equals的结果"</span>+b3);		<span class="comment">//打印结果</span></span><br><span class="line">			test2.name = <span class="string">"深海鱼biss"</span>;</span><br><span class="line">			test3.name = <span class="string">"深海鱼biss"</span>;</span><br><span class="line">			<span class="keyword">boolean</span> b4 = test.name.equals(test1.name);</span><br><span class="line">			System.out.println(<span class="string">"==的结果"</span>+b4);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">		String name;</span><br><span class="line">		<span class="keyword">int</span> age;</span><br><span class="line">		Test()&#123;&#125;</span><br><span class="line">		Test(String name,<span class="keyword">int</span> age)&#123;</span><br><span class="line">			<span class="keyword">this</span>.name = name;</span><br><span class="line">			<span class="keyword">this</span>.age = age;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后我们启动XxlJobAdminApplication类，访问<a href="http://localhost:8080/xxl-job-admin" target="_blank" rel="noopener">http://localhost:8080/xxl-job-admin</a> 默认账户admn，密码123456</p>
+<p><img src="https://s2.ax1x.com/2020/03/07/3XKGWT.png" alt></p>
+<p>进来就可以看到主界面了</p>
+<p><img src="https://s2.ax1x.com/2020/03/07/3XKclD.png" alt></p>
+<p>定位到springboot模块下的jobhandler层下面</p>
+<p><img src="https://s2.ax1x.com/2020/03/07/3XQ0G6.png" alt></p>
+<p>然后我们编写一个自己的定时任务来测试</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xxl.job.executor.service.jobhandler;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.xxl.job.core.biz.model.ReturnT;</span><br><span class="line"><span class="keyword">import</span> com.xxl.job.core.handler.IJobHandler;</span><br><span class="line"><span class="keyword">import</span> com.xxl.job.core.handler.annotation.JobHandler;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> fueen</span></span><br><span class="line"><span class="comment"> * 编写自己的定时任务Handler</span></span><br><span class="line"><span class="comment"> * 继承IJobHandler</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@JobHandler</span>(value = <span class="string">"MyJobHandler"</span>)</span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyJobHandler</span> <span class="keyword">extends</span> <span class="title">IJobHandler</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 重写execute方法，里面执行相应的功能</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> param</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> Exception</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ReturnT&lt;String&gt; <span class="title">execute</span><span class="params">(String param)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"我们不能失去信仰"</span>);</span><br><span class="line">        <span class="keyword">return</span> SUCCESS;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<p>在任务管理里面新增任务</p>
+<p><img src="https://s2.ax1x.com/2020/03/07/3Xl9L4.png" alt></p>
+<p><img src="https://s2.ax1x.com/2020/03/07/3X18HJ.png" alt></p>
+<p>然后在找到刚刚添加的任务，点击操作里面的启动</p>
+<p><img src="https://s2.ax1x.com/2020/03/07/3X15Dg.png" alt></p>
+<p>可以看到结果，刚刚编写的代码已经被执行了</p>
+<p><img src="https://s2.ax1x.com/2020/03/07/3X3k26.png" alt></p>
+<p>关于XXL-JOB的基本使用就到这里了，如果在项目中去集成也很简单</p>
+<p>在项目中引入依赖</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;com.xuxueli&lt;/groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;xxl-job-core&lt;/artifactId&gt;</span><br><span class="line">  &lt;version&gt;2.0.1&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<p>将xxl-job-executor-sample-springboot这个模块下的XxlJobConfig复制一份到项目中，然后将相关配置设置好即可</p>
 
       
     </div>
@@ -466,7 +516,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://www.ifueen.com/object/Java中-和equals的区别.html" title="Java中==和equals的区别">https://www.ifueen.com/object/Java中-和equals的区别.html</a>
+    <a href="https://www.ifueen.com/spring/XXL-JOB的使用.html" title="XXL-JOB的使用">https://www.ifueen.com/spring/XXL-JOB的使用.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -481,7 +531,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Java面向对象/" rel="tag"><i class="fas fa-broom"></i> Java面向对象</a>
+            <a href="/tags/SpringBoot/" rel="tag"><i class="fas fa-broom"></i> SpringBoot</a>
           
         </div>
       
@@ -494,8 +544,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/object/Java面向对象之方法重写-覆写.html" rel="next" title="Java面向对象之方法重写(覆写)">
-                <i class="fa fa-chevron-left"></i> Java面向对象之方法重写(覆写)
+              <a href="/share/记几次Java面经.html" rel="next" title="记几次Java面经">
+                <i class="fa fa-chevron-left"></i> 记几次Java面经
               </a>
             
           </div>
@@ -503,10 +553,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/object/Java面向对象之多态.html" rel="prev" title="Java面向对象之多态">
-                Java面向对象之多态 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -661,7 +707,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#"><span class="nav-number">1.</span> <span class="nav-text">==</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#equals"><span class="nav-number">2.</span> <span class="nav-text">equals</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Demo"><span class="nav-number">3.</span> <span class="nav-text">Demo</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用"><span class="nav-number">2.</span> <span class="nav-text">使用</span></a></li></ol></div>
             
 
           </div>
