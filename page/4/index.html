@@ -295,7 +295,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.ifueen.com/spring/JSP+SpringMVC分页.html">
+    <link itemprop="mainEntityOfPage" href="https://www.ifueen.com/spring/SpringMvc执行流程.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Fueen">
@@ -314,7 +314,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/spring/JSP+SpringMVC分页.html" itemprop="url">JSP+SpringMVC实现分页</a></h1>
+                <a class="post-title-link" href="/spring/SpringMvc执行流程.html" itemprop="url">SpringMVC执行流程</a></h1>
         
 
         <div class="post-meta">
@@ -370,8 +370,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/spring/JSP+SpringMVC分页.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/spring/JSP+SpringMVC分页.html" itemprop="commentCount"></span>
+                <a href="/spring/SpringMvc执行流程.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/spring/SpringMvc执行流程.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -400,16 +400,16 @@
 
       
         
-          <h2 id="分页类别"><a href="#分页类别" class="headerlink" title="分页类别"></a>分页类别</h2><p>分页又分为真分页(物理分页)和假分页(逻辑分页)</p>
-<h3 id="真分页"><a href="#真分页" class="headerlink" title="真分页"></a>真分页</h3><p>需要多少数据就查询多少数据</p>
-<p>Mysql:limit</p>
-<p>Oracle:rownum</p>
-<p>缺点：不可移植</p>
-<h3 id="假分页"><a href="#假分页" class="headerlink" title="假分页"></a>假分页</h3><p>先将数据查询出来，通过list的截取获取到分页的数据</p>
-<p>缺点：如果数据量太大，性能非常低</p>
+          <h2 id="SpringMVC执行流程"><a href="#SpringMVC执行流程" class="headerlink" title="SpringMVC执行流程"></a>SpringMVC执行流程</h2><p>首先要明确一点：Springmvc将所有的请求都提交给DispatcherServlet(前端控制器),它会委托应用系统的其他模块负责对请求 进行真正的处理工作</p>
+<p>1.用户发起请求，到DispathCherServlet</p>
+<p>2.DispathCherServlet会根据请求去查询所有的Controller，去处理器映射器（HandlerMapping）中查找Handler对象（Model)</p>
+<p>3.找到后HandlerMapping给前端控制器返回Handler</p>
+<p>4.DispathCherServlet去执行相应的Handler</p>
+<p>5.Handler(即Model层,里面就包含了Controller)执行相应的业务逻辑</p>
+<p>6.处理完业务逻辑后向前端控制器返回ModelAndView,ModelAndView是springmvc框架的一个底层对象，包括Model和view</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/spring/JSP+SpringMVC分页.html#more" rel="contents">
+            <a class="btn" href="/spring/SpringMvc执行流程.html#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
