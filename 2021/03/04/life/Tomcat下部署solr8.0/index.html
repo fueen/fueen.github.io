@@ -1,0 +1,388 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+      <meta name="author" content="Fueen">
+  
+  
+  
+      <meta name="description" content="他人即地狱">
+  
+  
+  
+    <link rel="alternate" href="/atom.xml " title="" type="application/atom+xml">
+  
+
+  
+
+  <title>Tomcat下部署solr8.0 | </title>
+
+  
+
+  
+
+  
+
+  <link rel="stylesheet" href="/css/style.css" >
+  <link rel="stylesheet" href="/css/partial/dark.css" >
+
+  
+  
+  
+
+  
+    
+      <link rel="stylesheet" href="/css/partial/highlight/atom-one-light.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/a2396837/CDN@latest/css/iconfont.css">
+    
+  
+
+  
+    <script src="/js/todark.js"></script>
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+</html>
+    
+<div class="nav index" style="height: 60px;">
+    <div class="title animated fadeInDown">
+        <div class="layui-container">
+                <div class="nav-title"><a href="/" title=""></a></div>
+            <div class="nav-list">
+                
+                <ul class="layui-nav" lay-filter="">
+                    
+                        
+                        
+                        
+                        
+                    <li class="layui-nav-item">
+                        <a href="/ ">
+                            <i class=" 主页" style="color:;"></i>
+                            <span class="layui-nav-item-name">主页</span>
+                        </a>
+                    </li>
+                    
+                        
+                        
+                        
+                        
+                    <li class="layui-nav-item">
+                        <a href="/categories/生活/ ">
+                            <i class=" 生活" style="color:;"></i>
+                            <span class="layui-nav-item-name">生活</span>
+                        </a>
+                    </li>
+                    
+                        
+                        
+                        
+                        
+                    <li class="layui-nav-item">
+                        <a href="/categories/技术/ ">
+                            <i class=" 技术" style="color:;"></i>
+                            <span class="layui-nav-item-name">技术</span>
+                        </a>
+                    </li>
+                    
+                        
+                        
+                        
+                        
+                    <li class="layui-nav-item">
+                        <a href="/about/ ">
+                            <i class=" 关于" style="color:;"></i>
+                            <span class="layui-nav-item-name">关于</span>
+                        </a>
+                    </li>
+                    
+                    
+                        <li class="layui-nav-item" id="btn-toggle-dark">🌙</li>
+                    
+                    <span class="layui-nav-bar" style="left: 342px; top: 78px; width: 0px; opacity: 0;"></span>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+    
+<header class="header">
+        
+            <div class="logo">
+                    <a href="/"><img src="https://my-pic-1303449483.cos.ap-guangzhou.myqcloud.com/%E9%A3%9E%E4%B9%A620230227-111023.jpg" onerror=this.onerror=null,this.src="/img/loading.gif"></a>
+            </div>
+         
+    </div>
+     
+
+            <div class="motto">
+                <span>我思故我在</span>
+            </div>
+    
+     
+</header>
+
+    
+<article id="post">
+  <div class="post-title">Tomcat下部署solr8.0</div>
+  
+<div class="post-meta">
+    
+    
+      <div class="post-meta-item date">
+        <span title="Created 2021.03.04"><i class="far fa-calendar-alt"></i> 2021.03.04</span>
+      </div>
+      <div class="post-meta-item updated">
+        <span title="Updated 2023.03.30"><i class="far fa-calendar-check"></i> 2023.03.30</span>
+      </div>
+     
+    
+      <div class="post-meta-item categories">
+        
+          <i class="fas fa-inbox article-meta__icon"></i> <a href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
+        
+      </div>
+     
+    
+     <div class="post-meta-item wordcount">
+        
+          <i class="fas fa-pencil-alt"></i> <span class="post-count">605 words</span>
+           
+        
+          <i class="far fa-clock"></i> <span class="post-count">2 min</span>
+                               
+      </div>
+     
+</div>
+
+
+  
+  <div class="content">
+        <div><p>因为公司业务需要用到solr8.0版本，本来solr8.0是可以直接启动的，但是这样不方便后续修改，所以采用tomcat的方式进行部署<br>首先准备好tomcat，我这里是tomcat9.0版本<br><img src= "/img/loading.gif" data-src="https://img-blog.csdnimg.cn/20210203104228133.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2YyMzE1ODk1Mjcw,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<span id="more"></span>
+
+<p>tomcat9下载地址：<a target="_blank" rel="noopener" href="https://tomcat.apache.org/download-90.cgi">https://tomcat.apache.org/download-90.cgi</a><br>solr8.0下载地址：<a target="_blank" rel="noopener" href="https://archive.apache.org/dist/lucene/solr/">https://archive.apache.org/dist/lucene/solr/</a> 这里有solr所有的版本，我自己用的是8.0<br>下载好后将solr解压<br><img src= "/img/loading.gif" data-src="https://img-blog.csdnimg.cn/20210203104526387.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2YyMzE1ODk1Mjcw,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<blockquote>
+<p>然后就可以开始配置</p>
+</blockquote>
+<p>然后在tomcat的webapps目录下面新建一个目录叫solr</p>
+<ul>
+<li>将solr-8.0.0\server\solr-webapp\目录下的 webapp 文件夹复制到tomcat\webapps\solr目录下面</li>
+<li>将solr-8.0.0\server\lib\ext文件夹底下的 lib 包全部复制到tomcat\webapps\底下的solr&#x2F;WEB-INF&#x2F;libs&#x2F;中</li>
+<li>把 solr-8.0.0\server\lib 下的 metrics-core-3.2.6.jar，metrics-ganglia-3.2.6.jar,metrics-graphite-3.2.6.jar,metrics-jetty9-3.2.6.jar, metrics-jvm-3.2.6.jar 这几个jar包放到tomcat下的solr项目的 WEB-INF&#x2F;lib目录下</li>
+<li>在solr\WEB-INF目录下面新建文件夹classes，将 solr-8.0.0\server\resources 目录下所有文件复制到 tomcat 底下\webapps\solr\WEB-INF\classes文件夹下</li>
+<li>将 solr-8.0.0\dist 目录下的 solr-dataimporthandler-8.0.0.jar与solr-dataimporthandler-extras-8.0.0.jar也复制到tomcat\webapps\底下的solr&#x2F;WEB-INF&#x2F;libs&#x2F;中</li>
+<li>然后新建一个solr_home目录，这个目录用来存放solr的数据文件，根据你自己选择在哪里新建，我是在&#x2F;data&#x2F;目录下面新建的</li>
+<li><img src= "/img/loading.gif" data-src="https://img-blog.csdnimg.cn/20210203105934766.png" alt="在这里插入图片描述"></li>
+<li>将 solr-8.0.0\server\solr\ 下的所有文件复制到刚刚创建的 solr_home 文件夹下</li>
+<li>修改web.xml文件，添加如下文件<br><img src= "/img/loading.gif" data-src="https://img-blog.csdnimg.cn/20210203110227250.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2YyMzE1ODk1Mjcw,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">env-entry</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">env-entry-name</span>&gt;</span>solr/home<span class="tag">&lt;/<span class="name">env-entry-name</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">env-entry-value</span>&gt;</span>/put/your/solr/home/here<span class="tag">&lt;/<span class="name">env-entry-value</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">env-entry-type</span>&gt;</span>java.lang.String<span class="tag">&lt;/<span class="name">env-entry-type</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">env-entry</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>把这一段注释掉</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">security-constraint</span>&gt;</span> </span><br><span class="line">   <span class="tag">&lt;<span class="name">web-resource-collection</span>&gt;</span> </span><br><span class="line">     <span class="tag">&lt;<span class="name">web-resource-name</span>&gt;</span>Disable TRACE<span class="tag">&lt;/<span class="name">web-resource-name</span>&gt;</span> </span><br><span class="line">     <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span> </span><br><span class="line">     <span class="tag">&lt;<span class="name">http-method</span>&gt;</span>TRACE<span class="tag">&lt;/<span class="name">http-method</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;/<span class="name">web-resource-collection</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;<span class="name">auth-constraint</span>/&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">security-constraint</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">security-constraint</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;<span class="name">web-resource-collection</span>&gt;</span> </span><br><span class="line">     <span class="tag">&lt;<span class="name">web-resource-name</span>&gt;</span>Enable everything but TRACE<span class="tag">&lt;/<span class="name">web-resource-name</span>&gt;</span> </span><br><span class="line">     <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span> </span><br><span class="line">     <span class="tag">&lt;<span class="name">http-method-omission</span>&gt;</span>TRACE<span class="tag">&lt;/<span class="name">http-method-omission</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;/<span class="name">web-resource-collection</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">security-constraint</span>&gt;</span> </span><br></pre></td></tr></table></figure>
+<p>这样solr就配置好了，然后输入地址你的ip+端口&#x2F;solr&#x2F;index.html<br><img src= "/img/loading.gif" data-src="https://img-blog.csdnimg.cn/20210203111609662.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2YyMzE1ODk1Mjcw,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>完成！！</p>
+</div>
+        
+          <div class="post-copyright">
+                  <div class="copyright-item">
+                      <span> Author: Fueen</span>
+                  </div>
+                  <div class="copyright-item">
+                      <span> Link: <a href="http://example.com/2021/03/04/life/Tomcat%E4%B8%8B%E9%83%A8%E7%BD%B2solr8.0/">http://example.com/2021/03/04/life/Tomcat%E4%B8%8B%E9%83%A8%E7%BD%B2solr8.0/</a></span>
+                  </div>
+                  <div class="copyright-item">
+                      <span> License: 本博客所有文章除特别声明外，均采用许可协议 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> 转载请注明出处！</span>
+                  </div>
+          </div>
+        
+  </div>
+
+  <div class="share-reward">
+    <div class="share">
+        
+<div class="social-share" data-sites="facebook,twitter,wechat,weibo,qq"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script>
+
+
+      </div>
+        <div class="reward">
+          
+        </div>
+    </div>
+    
+    <div class="post_tags">
+      
+    </div>
+    <div class="post-nav">
+      
+        <div class="post-nav-prev post-nav-item">
+            <a href="/2023/03/18/life/%E9%BB%84%E6%B7%8B%E6%98%AFSB/" >黄淋是SB<i class="fa fa-chevron-left"></i></a>
+        </div>
+      
+      
+        <div class="post-nav-next post-nav-item">
+            <a href="/2020/12/27/life/%E6%88%91%E7%9A%842020/" >我的2020<i class="fa fa-chevron-right"></i></a>
+        </div>
+      
+    </div>
+      
+
+
+
+  <div id="valine"></div>
+  <script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+  <script>
+        new Valine({
+          el: '#valine',
+          appId: "",
+          appKey: "",
+          avatar: "mm",
+          lang: "",
+          meta: 'nick,mail,link'.split(','),
+          requiredFields: 'nick,mail'.split(','),
+          placeholder: "评论记得带上邮箱,你的留言我会马上收到邮箱提醒哒",
+          pageSize:'10',
+          recordIP: 'false',
+          serverURLs: "",
+          emojiCDN: "",
+          enableQQ: "true",
+        });
+  </script>
+  
+
+</article>
+
+    
+<a id="gotop" href="javascript:" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    
+
+
+
+
+
+
+    
+<div id="bottom-outer">
+    <div id="bottom-inner">
+        © 2019-2023 <i class="fa fa-heart" id="heart"></i> Fueen 
+        <br>
+        Powered by 
+        <a target="_blank" rel="noopener" href="http://hexo.io">hexo</a>
+        
+          <div class="icp-info">
+            
+          <a href="" target="_blank"> </a>
+        </div>
+        
+    </div>  
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/layui-src@2.5.5/dist/layui.min.js"></script>
+
+
+
+  
+    <script src="/js/script.js"></script>
+  
+    <script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script>
+  
+
+ 
+
+
+
+  <script>
+    window.lazyLoadOptions = {
+      elements_selector: 'img',
+      threshold: 0
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script>   
+  
+
+
+  <script>
+    var images = $('img').not('.nav-logo img').not('.card img').not($('a>img')).not('.reward-content img')
+    images.each(function (i, o) {
+      var lazyloadSrc = $(o).attr('data-src') ? $(o).attr('data-src') : $(o).attr('src')
+      $(o).wrap(`<a href="${lazyloadSrc}" data-fancybox="group" data-caption="${$(o).attr('alt')}" class="fancybox"></a>`)
+    })
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script>
+  <script>
+        $().fancybox({
+      selector: '[data-fancybox]',
+      loop: true,
+      transitionEffect: 'slide',
+      protect: true,
+      buttons: ['slideShow', 'fullScreen', 'thumbs', 'close']
+    })
+  </script>   
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script>
+  
+
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js"></script>
+<script>
+!function (e, t, a) {
+  var initCopyCode = function(){
+    var copyHtml = '';
+    copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+    copyHtml += '  <i class="fa fa-clipboard"></i><span>复制</span>';
+    copyHtml += '</button>';
+    $(".highlight .code pre").before(copyHtml);
+    new ClipboardJS('.btn-copy', {
+      target: function(trigger) {
+        return trigger.nextElementSibling;
+      }
+    });
+  }
+  initCopyCode();
+}(window, document);
+</script>  
+  
+
+<script>
+  var btntop = $('#gotop');
+  btntop.on('click', function (e) {
+    e.preventDefault();
+    $('html, body').animate({ scrollTop: 0 }, '300');
+  });
+
+  var $table = $('.content table').not($('figure.highlight > table'))
+$table.each(function () {
+  $(this).wrap('<div class="table-wrap"></div>')
+})
+</script>
+
+
+
+</html>
