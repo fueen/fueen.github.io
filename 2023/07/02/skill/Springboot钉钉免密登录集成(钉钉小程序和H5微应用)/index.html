@@ -1,0 +1,400 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+      <meta name="author" content="Fueen">
+  
+  
+  
+      <meta name="description" content="他人即地狱">
+  
+  
+  
+    <link rel="alternate" href="/atom.xml " title="关山难越" type="application/atom+xml">
+  
+
+  
+
+  <title>Springboot钉钉免密登录集成(钉钉小程序和H5微应用) | 关山难越</title>
+
+  
+
+  
+
+  
+
+  <link rel="stylesheet" href="/css/style.css" >
+  <link rel="stylesheet" href="/css/partial/dark.css" >
+
+  
+  
+  
+
+  
+    
+      <link rel="stylesheet" href="/css/partial/highlight/atom-one-light.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/a2396837/CDN@latest/css/iconfont.css">
+    
+  
+
+  
+    <script src="/js/todark.js"></script>
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+</html>
+    
+<div class="nav index" style="height: 60px;">
+    <div class="title animated fadeInDown">
+        <div class="layui-container">
+            <div class="nav-list">
+                
+                <ul class="layui-nav" lay-filter="">
+                    
+                        
+                        
+                        
+                        
+                    <li class="layui-nav-item">
+                        <a href="/ ">
+                            <i class=" 主页" style="color:;"></i>
+                            <span class="layui-nav-item-name">主页</span>
+                        </a>
+                    </li>
+                    
+                        
+                        
+                        
+                        
+                    <li class="layui-nav-item">
+                        <a href="/categories/生活/ ">
+                            <i class=" 生活" style="color:;"></i>
+                            <span class="layui-nav-item-name">生活</span>
+                        </a>
+                    </li>
+                    
+                        
+                        
+                        
+                        
+                    <li class="layui-nav-item">
+                        <a href="/categories/技术/ ">
+                            <i class=" 技术" style="color:;"></i>
+                            <span class="layui-nav-item-name">技术</span>
+                        </a>
+                    </li>
+                    
+                        
+                        
+                        
+                        
+                    <li class="layui-nav-item">
+                        <a href="/about/ ">
+                            <i class=" 关于" style="color:;"></i>
+                            <span class="layui-nav-item-name">关于</span>
+                        </a>
+                    </li>
+                    
+                    
+                        <li class="layui-nav-item" id="btn-toggle-dark">🌙</li>
+                    
+                    <span class="layui-nav-bar" style="left: 342px; top: 78px; width: 0px; opacity: 0;"></span>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+    
+<header class="header">
+        
+            <div class="logo">
+                    <a href="/"><img src="https://my-pic-1303449483.cos.ap-guangzhou.myqcloud.com/%E9%A3%9E%E4%B9%A620230227-111023.jpg" onerror=this.onerror=null,this.src="/img/loading.gif"></a>
+            </div>
+         
+    </div>
+     
+
+            <div class="motto">
+                <span>谁悲失路之人</span>
+            </div>
+    
+     
+</header>
+
+    
+<article id="post">
+  <div class="post-title">Springboot钉钉免密登录集成(钉钉小程序和H5微应用)</div>
+  
+<div class="post-meta">
+    
+    
+      <div class="post-meta-item date">
+        <span title="Created 2023.07.02"><i class="far fa-calendar-alt"></i> 2023.07.02</span>
+      </div>
+      <div class="post-meta-item updated">
+        <span title="Updated 2023.07.02"><i class="far fa-calendar-check"></i> 2023.07.02</span>
+      </div>
+     
+    
+      <div class="post-meta-item categories">
+        
+          <i class="fas fa-inbox article-meta__icon"></i> <a href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
+        
+      </div>
+     
+    
+     <div class="post-meta-item wordcount">
+        
+          <i class="fas fa-pencil-alt"></i> <span class="post-count">1k words</span>
+           
+        
+          <i class="far fa-clock"></i> <span class="post-count">4 min</span>
+                               
+      </div>
+     
+</div>
+
+
+  
+  <div class="content">
+        <div><blockquote>
+<p>RT，因为业务需要把我们系统集成到钉钉里面一个小程序和一个H5应用，并且在钉钉平台上面实现无感登录，用户打开我们系统后不需要再输入密码即可登录进系统，查阅文档实际操作过之后记录一下过程</p>
+</blockquote>
+<span id="more"></span>
+
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>首先就是需要在钉钉开发者平台申请账号资格，<a target="_blank" rel="noopener" href="https://open-dev.dingtalk.com/">开发者后台管理</a>，通过链接进去注册或者加入团队<br>然后就是从平台创建应用，平台有很多种不同类型的应用，我所需要创建的是企业内部应用，一个小程序，一个H5微应用，其他应用具体可以参考钉钉应用介绍的文档：<a target="_blank" rel="noopener" href="https://open.dingtalk.com/document/orgapp/application-types">https://open.dingtalk.com/document/orgapp/application-types</a><br><img src= "/img/loading.gif" data-src="https://img-blog.csdnimg.cn/fa0cf6fa09e84e67945032a2192a08d4.png" alt="在这里插入图片描述"><br>创建好了应用之后需要拿到应用的AppKey和AppSecret，点击应用详情里面能够看到，把这两个复制下来后面需要用到<br><img src= "/img/loading.gif" data-src="https://img-blog.csdnimg.cn/6877a476b84d4384a552b88f83dd7a0e.png" alt="在这里插入图片描述">然后根据我的实际经验还需要设置几个东西，保证后面使用顺畅</p>
+<blockquote>
+<p>在开发管理中将自己调用的公网ip配置进去</p>
+</blockquote>
+<p><img src= "/img/loading.gif" data-src="https://img-blog.csdnimg.cn/0e820b2c0284499d994954d828218e3a.png" alt="在这里插入图片描述"></p>
+<blockquote>
+<p>在权限管理中把个人权限和通讯录权限进行申请授权，我的设置是全部员工，然后把全部申请授权</p>
+</blockquote>
+<p><img src= "/img/loading.gif" data-src="https://img-blog.csdnimg.cn/cac1c84754394bf285c5f75eccf3706d.png" alt="在这里插入图片描述"><br><img src= "/img/loading.gif" data-src="https://img-blog.csdnimg.cn/772e7f7e39d04d349e141db0f633c331.png" alt="在这里插入图片描述"></p>
+<h2 id="开发集成"><a href="#开发集成" class="headerlink" title="开发集成"></a>开发集成</h2><p>这里我采用的是springboot进行开发，官方推荐的是maven来进行构建，但是我们使用的是gradle开发，这里我把两种的都列出来</p>
+<blockquote>
+<p>maven</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.aliyun<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>alibaba-dingtalk-service-sdk<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.0.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>gradle</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">implementation &#x27;com.aliyun:alibaba-dingtalk-service-sdk:2.0.0&#x27;</span><br></pre></td></tr></table></figure>
+<p>然后在application.yml配置文件中配置好之前保存的AppKey和AppSecret</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#钉钉开放平台</span><br><span class="line">dingTalk:</span><br><span class="line">  appkey: AppKey</span><br><span class="line">  appSecret: AppSecret</span><br></pre></td></tr></table></figure>
+<p>获取token工具类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 获取access_token工具类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AccessTokenUtil</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//钉钉开发平台配置appkey</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String APP_KEY;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//钉钉开发平台配置appsecret</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String APP_SECRET;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;dingTalk.appkey&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setAppKey</span><span class="params">(String appKey)</span>&#123;</span><br><span class="line">        AccessTokenUtil.APP_KEY = appKey;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;dingTalk.appSecret&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setAppSecret</span><span class="params">(String appSecret)</span>&#123;</span><br><span class="line">        AccessTokenUtil.APP_SECRET = appSecret;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 钉钉网关gettoken地址</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">URL_GET_TOKKEN</span> <span class="operator">=</span> <span class="string">&quot;https://oapi.dingtalk.com/gettoken&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">getToken</span><span class="params">()</span> <span class="keyword">throws</span> RuntimeException &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">DefaultDingTalkClient</span> <span class="variable">client</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DefaultDingTalkClient</span>(URL_GET_TOKKEN);</span><br><span class="line">            <span class="type">OapiGettokenRequest</span> <span class="variable">request</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">OapiGettokenRequest</span>();</span><br><span class="line"></span><br><span class="line">            request.setAppkey(APP_KEY);</span><br><span class="line">            request.setAppsecret(APP_SECRET);</span><br><span class="line">            request.setHttpMethod(<span class="string">&quot;GET&quot;</span>);</span><br><span class="line">            <span class="type">OapiGettokenResponse</span> <span class="variable">response</span> <span class="operator">=</span> client.execute(request);</span><br><span class="line">            <span class="type">String</span> <span class="variable">accessToken</span> <span class="operator">=</span> response.getAccessToken();</span><br><span class="line">            <span class="keyword">return</span> accessToken;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ApiException e) &#123;</span><br><span class="line">            log.error(<span class="string">&quot;getAccessToken failed&quot;</span>, e);</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span><span class="keyword">throws</span> ApiException&#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">accessToken</span> <span class="operator">=</span> AccessTokenUtil.getToken();</span><br><span class="line">        System.out.println(accessToken);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后写一个接口测试</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Resource</span></span><br><span class="line">   <span class="keyword">private</span> DingTalkService dingTalkService;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 钉钉免密登录</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> authCode authCode码</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="meta">@GetMapping(&quot;/login&quot;)</span></span><br><span class="line">   <span class="keyword">public</span> Result <span class="title function_">dingLogin</span><span class="params">(<span class="meta">@RequestParam(&quot;authCode&quot;)</span> String authCode)</span>&#123;</span><br><span class="line">       <span class="keyword">return</span> Result.success(dingTalkService.dingLogin(authCode));</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在service中处理</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">URL_GET_USER_INFO</span> <span class="operator">=</span> <span class="string">&quot;https://oapi.dingtalk.com/user/getuserinfo&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取用户信息的接口</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">URL_USERINFO_GET</span> <span class="operator">=</span> <span class="string">&quot;https://oapi.dingtalk.com/topapi/v2/user/get&quot;</span>;</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> Object <span class="title function_">dingLogin</span><span class="params">(String authCode)</span> &#123;</span><br><span class="line">        <span class="comment">//获取accessToken,注意正是代码要有异常流处理</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">token</span> <span class="operator">=</span> AccessTokenUtil.getToken();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//获取用户信息</span></span><br><span class="line">        <span class="type">DefaultDingTalkClient</span> <span class="variable">client</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DefaultDingTalkClient</span>(URL_GET_USER_INFO);</span><br><span class="line">        <span class="type">OapiUserGetuserinfoRequest</span> <span class="variable">request</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">OapiUserGetuserinfoRequest</span>();</span><br><span class="line">        request.setCode(authCode);</span><br><span class="line">        request.setHttpMethod(<span class="string">&quot;GET&quot;</span>);</span><br><span class="line"></span><br><span class="line">        OapiUserGetuserinfoResponse response;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            response = client.execute(request, token);</span><br><span class="line">            <span class="comment">//当前用户id</span></span><br><span class="line">            <span class="type">String</span> <span class="variable">userId</span> <span class="operator">=</span> response.getUserid();</span><br><span class="line">            <span class="type">OapiV2UserGetResponse</span> <span class="variable">userInfoResp</span> <span class="operator">=</span> getUserInfo(token, userId);</span><br><span class="line">            OapiV2UserGetResponse.<span class="type">UserGetResponse</span> <span class="variable">result</span> <span class="operator">=</span> userInfoResp.getResult();</span><br><span class="line">            <span class="comment">//拿到用户信息之后进行业务处理,这里我是通过unionid和数据库中用户的unionid进行匹配,然后再走我们自己的登录逻辑</span></span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> OapiV2UserGetResponse <span class="title function_">getUserInfo</span><span class="params">(String access_token, String userId)</span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">DingTalkClient</span> <span class="variable">client</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DefaultDingTalkClient</span>(URL_USERINFO_GET);</span><br><span class="line">            <span class="type">OapiV2UserGetRequest</span> <span class="variable">req</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">OapiV2UserGetRequest</span>();</span><br><span class="line">            req.setUserid(userId);</span><br><span class="line">            req.setLanguage(<span class="string">&quot;zh_CN&quot;</span>);</span><br><span class="line">            <span class="type">OapiV2UserGetResponse</span> <span class="variable">rsp</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">            rsp = client.execute(req, access_token);</span><br><span class="line">            System.out.println(rsp.getBody());</span><br><span class="line">            <span class="keyword">return</span> rsp;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ApiException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>上面返回的Result是自定义封装的一个返回实体，可以根据情况替换成自己的返回类型，大概的流程就是如此，前端获取authcode码之后请求接口，这边再访问钉钉的api接口，通过token和code码获取到用户的信息，然后就可以根据自己系统的业务进行相关的登录判断操作，整个过程还是挺简单的，只要把准备工作做好还是比较顺畅</p>
+</blockquote>
+</div>
+        
+          <div class="post-copyright">
+                  <div class="copyright-item">
+                      <span> Author: Fueen</span>
+                  </div>
+                  <div class="copyright-item">
+                      <span> Link: <a href="https://ifueen.com/2023/07/02/skill/Springboot%E9%92%89%E9%92%89%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95%E9%9B%86%E6%88%90(%E9%92%89%E9%92%89%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%92%8CH5%E5%BE%AE%E5%BA%94%E7%94%A8)/">https://ifueen.com/2023/07/02/skill/Springboot%E9%92%89%E9%92%89%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95%E9%9B%86%E6%88%90(%E9%92%89%E9%92%89%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%92%8CH5%E5%BE%AE%E5%BA%94%E7%94%A8)/</a></span>
+                  </div>
+                  <div class="copyright-item">
+                      <span> License: 本博客所有文章除特别声明外，均采用许可协议 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> 转载请注明出处！</span>
+                  </div>
+          </div>
+        
+  </div>
+
+  <div class="share-reward">
+    <div class="share">
+        
+<div class="social-share" data-sites="facebook,twitter,wechat,weibo,qq"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script>
+
+
+      </div>
+        <div class="reward">
+          
+        </div>
+    </div>
+    
+    <div class="post_tags">
+      
+    </div>
+    <div class="post-nav">
+      
+        <div class="post-nav-prev post-nav-item">
+            <a href="/2023/07/02/skill/SpringBoot%E9%92%89%E9%92%89%E9%80%9A%E8%AE%AF%E5%BD%95%E4%BF%A1%E6%81%AF%E5%90%8C%E6%AD%A5/" >SpringBoot钉钉通讯录信息同步<i class="fa fa-chevron-left"></i></a>
+        </div>
+      
+      
+        <div class="post-nav-next post-nav-item">
+            <a href="/2023/04/16/life/%E9%9D%92%E5%9F%8E%E5%B1%B1%E6%B8%B8/" >青城山游<i class="fa fa-chevron-right"></i></a>
+        </div>
+      
+    </div>
+      
+
+
+
+  <div id="valine"></div>
+  <script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+  <script>
+        new Valine({
+          el: '#valine',
+          appId: "",
+          appKey: "",
+          avatar: "mm",
+          lang: "",
+          meta: 'nick,mail,link'.split(','),
+          requiredFields: 'nick,mail'.split(','),
+          placeholder: "评论记得带上邮箱,你的留言我会马上收到邮箱提醒哒",
+          pageSize:'10',
+          recordIP: 'false',
+          serverURLs: "",
+          emojiCDN: "",
+          enableQQ: "true",
+        });
+  </script>
+  
+
+</article>
+
+    
+<a id="gotop" href="javascript:" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    
+
+
+
+
+
+
+    
+<div id="bottom-outer">
+    <div id="bottom-inner">
+        © 2019-2023 <i class="fa fa-heart" id="heart"></i> Fueen 
+        <br>
+        Powered by 
+        <a target="_blank" rel="noopener" href="http://hexo.io">hexo</a>
+        
+          <div class="icp-info">
+            
+          <a href="" target="_blank"> </a>
+        </div>
+        
+    </div>  
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/layui-src@2.5.5/dist/layui.min.js"></script>
+
+
+
+  
+    <script src="/js/script.js"></script>
+  
+    <script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script>
+  
+
+ 
+
+
+
+  <script>
+    window.lazyLoadOptions = {
+      elements_selector: 'img',
+      threshold: 0
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script>   
+  
+
+
+  <script>
+    var images = $('img').not('.nav-logo img').not('.card img').not($('a>img')).not('.reward-content img')
+    images.each(function (i, o) {
+      var lazyloadSrc = $(o).attr('data-src') ? $(o).attr('data-src') : $(o).attr('src')
+      $(o).wrap(`<a href="${lazyloadSrc}" data-fancybox="group" data-caption="${$(o).attr('alt')}" class="fancybox"></a>`)
+    })
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script>
+  <script>
+        $().fancybox({
+      selector: '[data-fancybox]',
+      loop: true,
+      transitionEffect: 'slide',
+      protect: true,
+      buttons: ['slideShow', 'fullScreen', 'thumbs', 'close']
+    })
+  </script>   
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script>
+  
+
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js"></script>
+<script>
+!function (e, t, a) {
+  var initCopyCode = function(){
+    var copyHtml = '';
+    copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+    copyHtml += '  <i class="fa fa-clipboard"></i><span>复制</span>';
+    copyHtml += '</button>';
+    $(".highlight .code pre").before(copyHtml);
+    new ClipboardJS('.btn-copy', {
+      target: function(trigger) {
+        return trigger.nextElementSibling;
+      }
+    });
+  }
+  initCopyCode();
+}(window, document);
+</script>  
+  
+
+<script>
+  var btntop = $('#gotop');
+  btntop.on('click', function (e) {
+    e.preventDefault();
+    $('html, body').animate({ scrollTop: 0 }, '300');
+  });
+
+  var $table = $('.content table').not($('figure.highlight > table'))
+$table.each(function () {
+  $(this).wrap('<div class="table-wrap"></div>')
+})
+</script>
+
+
+
+</html>
