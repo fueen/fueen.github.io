@@ -1,0 +1,404 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+      <meta name="author" content="Fueen">
+  
+  
+  
+      <meta name="description" content="他人即地狱">
+  
+  
+  
+    <link rel="alternate" href="/atom.xml " title="关山难越" type="application/atom+xml">
+  
+
+  
+
+  <title>Java通过Redis进行延时队列，定时发布消息(根据用户选择时间进行发布) | 关山难越</title>
+
+  
+
+  
+
+  
+
+  <link rel="stylesheet" href="/css/style.css" >
+  <link rel="stylesheet" href="/css/partial/dark.css" >
+
+  
+  
+  
+
+  
+    
+      <link rel="stylesheet" href="/css/partial/highlight/atom-one-light.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/a2396837/CDN@latest/css/iconfont.css">
+    
+  
+
+  
+    <script src="/js/todark.js"></script>
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+</html>
+    
+<div class="nav index" style="height: 60px;">
+    <div class="title animated fadeInDown">
+        <div class="layui-container">
+            <div class="nav-list">
+                
+                <ul class="layui-nav" lay-filter="">
+                    
+                        
+                        
+                        
+                        
+                    <li class="layui-nav-item">
+                        <a href="/ ">
+                            <i class=" 主页" style="color:;"></i>
+                            <span class="layui-nav-item-name">主页</span>
+                        </a>
+                    </li>
+                    
+                        
+                        
+                        
+                        
+                    <li class="layui-nav-item">
+                        <a href="/categories/生活/ ">
+                            <i class=" 生活" style="color:;"></i>
+                            <span class="layui-nav-item-name">生活</span>
+                        </a>
+                    </li>
+                    
+                        
+                        
+                        
+                        
+                    <li class="layui-nav-item">
+                        <a href="/categories/技术/ ">
+                            <i class=" 技术" style="color:;"></i>
+                            <span class="layui-nav-item-name">技术</span>
+                        </a>
+                    </li>
+                    
+                        
+                        
+                        
+                        
+                    <li class="layui-nav-item">
+                        <a href="/about/ ">
+                            <i class=" 关于" style="color:;"></i>
+                            <span class="layui-nav-item-name">关于</span>
+                        </a>
+                    </li>
+                    
+                    
+                        <li class="layui-nav-item" id="btn-toggle-dark">🌙</li>
+                    
+                    <span class="layui-nav-bar" style="left: 342px; top: 78px; width: 0px; opacity: 0;"></span>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+    
+<header class="header">
+        
+            <div class="logo">
+                    <a href="/"><img src="https://my-pic-1303449483.cos.ap-guangzhou.myqcloud.com/%E9%A3%9E%E4%B9%A620230227-111023.jpg" onerror=this.onerror=null,this.src="/img/loading.gif"></a>
+            </div>
+         
+    </div>
+     
+
+            <div class="motto">
+                <span>谁悲失路之人</span>
+            </div>
+    
+     
+</header>
+
+    
+<article id="post">
+  <div class="post-title">Java通过Redis进行延时队列，定时发布消息(根据用户选择时间进行发布)</div>
+  
+<div class="post-meta">
+    
+    
+      <div class="post-meta-item date">
+        <span title="Created 2023.11.30"><i class="far fa-calendar-alt"></i> 2023.11.30</span>
+      </div>
+      <div class="post-meta-item updated">
+        <span title="Updated 2023.12.02"><i class="far fa-calendar-check"></i> 2023.12.02</span>
+      </div>
+     
+    
+      <div class="post-meta-item categories">
+        
+          <i class="fas fa-inbox article-meta__icon"></i> <a href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
+        
+      </div>
+     
+    
+     <div class="post-meta-item wordcount">
+        
+          <i class="fas fa-pencil-alt"></i> <span class="post-count">2.3k words</span>
+           
+        
+          <i class="far fa-clock"></i> <span class="post-count">10 min</span>
+                               
+      </div>
+     
+</div>
+
+
+  
+  <div class="content">
+        <div><blockquote>
+<p>目前很多产品都用到过定时发布或者定时推送等功能，定时推送有两种定义，一种是后台自己有相关规则，通过定时器设置好相应的时间进行推送(例如定时任务框架QuartZ、xxl-job等实现,或者通过springboot自带定时任务@Scheduled注解等实现)，这些都是基于后台设定的规则来进行定时推送。<br>还有一种场景便是根据用户自己选择想要的时间进行推送，这时候再用到上面的方法来做会比较麻烦和复杂，就需要用到延时队列来实现</p>
+<span id="more"></span>
+</blockquote>
+<blockquote>
+<h2 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h2><p>在做这个功能之前，我在网上查阅了想要实现这种根据用户选择时间来推送的相关资料，发现方式还是挺多的，包括但不限于以下几种：</p>
+<ol>
+<li>最简单暴力的方法，通过上述的定时任务框架或者springboot自带的定时器来实现，把cron表达式书写为每分钟一次，然后每分钟都去检查是否和用户设置的时间能匹配上，如能匹配上就进行相关的业务操作</li>
+<li>通过实现springboot自带的SchedulingConfigurer接口来进行动态任务调用</li>
+<li>通过DelayQueue队列进行实现</li>
+<li>通过MQ中间件的发送消费来实现</li>
+<li>通过Redis设置key过期时间触发来进行实现<br>…<br>上面的几种实现第1、2点比较简单，也很有效果，但是容易出现效率问题和准确性的问题，下面45点的比较不错，但是相比较起来学习成本会高一些，具体实现的思路差不太多，这些都有相关的资料，通过上面的关键字搜索便能查阅到</li>
+</ol>
+<h2 id="功能实现"><a href="#功能实现" class="headerlink" title="功能实现"></a>功能实现</h2><blockquote>
+<p>看了那么多的方案之后再结合自身的项目，最终决定用一种新的方案来实现，通过Redis自带的DelayedQueue延时队列来完成，和上面的第45点其实思路差不太多，只不过这个更简单方便一点</p>
+</blockquote>
+<p>定义一个实体类来进行配置</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TaskBodyDto</span> <span class="keyword">implements</span> <span class="title class_">Serializable</span> &#123;</span><br><span class="line"></span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 重试最大次数</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">MAX_RETRY</span> <span class="operator">=</span> <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String idKey;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String beanName;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String methodName;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Map&lt;String, Object&gt; paramMap;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 重试计时器</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> cnt;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 延迟的时间</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">long</span> delay;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 延迟的时间单位</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> TimeUnit timeUnit;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>定义RedisDelayedQueueListener接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">RedisDelayedQueueListener</span>&lt;T&gt; &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">invoke</span><span class="params">(T t)</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后再配置好监听器，在监听器里面通过反射获取到相关的方法然后执行里面的业务</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TaskListener</span> <span class="keyword">implements</span> <span class="title class_">RedisDelayedQueueListener</span>&lt;TaskBodyDto&gt; &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> List&lt;Class&gt; WRAP_CLASS = Arrays.asList(Integer.class, Boolean.class, Double.class, Byte.class, Short.class, Long.class, Float.class, Double.class, BigDecimal.class, String.class);</span><br><span class="line"></span><br><span class="line">		<span class="comment">//队列Queue</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> RedissonDelayQueue redissonDelayQueue;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> TaskSender taskSender;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">invoke</span><span class="params">(TaskBodyDto reqVo)</span> &#123;</span><br><span class="line">        log.info(<span class="string">&quot;开始执行监听...&#123;&#125;&quot;</span>, reqVo);</span><br><span class="line">        reqVo.setCnt(reqVo.getCnt() + <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">Object</span> <span class="variable">bean</span> <span class="operator">=</span> ApplicationContextUtil.getBean(reqVo.getBeanName());</span><br><span class="line">            <span class="type">Method</span> <span class="variable">method</span> <span class="operator">=</span> ReflectUtil.getMethodByName(bean.getClass(), reqVo.getMethodName());</span><br><span class="line">            <span class="type">Class</span> <span class="variable">target</span> <span class="operator">=</span> AopUtils.getTargetClass(bean);</span><br><span class="line">            <span class="type">Method</span> <span class="variable">targetMethod</span> <span class="operator">=</span> ReflectUtil.getMethodByName(target, reqVo.getMethodName());</span><br><span class="line">            List&lt;Object&gt; objects = getMethodParamList(targetMethod, reqVo.getParamMap());</span><br><span class="line">            method.invoke(bean, objects.toArray());</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            log.error(<span class="string">&quot;invoke task err!&quot;</span>, e);</span><br><span class="line">            <span class="keyword">if</span> (reqVo.getCnt() &gt; TaskBodyDto.MAX_RETRY) &#123;</span><br><span class="line">                log.error(<span class="string">&quot;重试次数超过最大次数，不再重试。&quot;</span>);</span><br><span class="line">                <span class="type">DeadQueDto</span> <span class="variable">deadQueDto</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DeadQueDto</span>();</span><br><span class="line">                deadQueDto.setBeanName(reqVo.getBeanName());</span><br><span class="line">                deadQueDto.setMethodName(reqVo.getMethodName());</span><br><span class="line">                deadQueDto.setParamMap(reqVo.getParamMap());</span><br><span class="line">                taskSender.sendTask(deadQueDto);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">//重试，30分钟后重试，秒为单位则用原数据</span></span><br><span class="line">                <span class="keyword">if</span> (reqVo.getTimeUnit().name().equals(TimeUnit.DAYS.name()) || reqVo.getTimeUnit().name().equals(TimeUnit.HOURS.name())) &#123;</span><br><span class="line">                    reqVo.setDelay(<span class="number">30</span>);</span><br><span class="line">                    reqVo.setTimeUnit(TimeUnit.MINUTES);</span><br><span class="line">                    redissonDelayQueue.add(reqVo);</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (reqVo.getTimeUnit().name().equals(TimeUnit.MINUTES.name()) &amp;&amp; reqVo.getDelay() &gt; <span class="number">30</span>) &#123;</span><br><span class="line">                    reqVo.setDelay(<span class="number">30</span>);</span><br><span class="line">                    reqVo.setTimeUnit(TimeUnit.MINUTES);</span><br><span class="line">                    redissonDelayQueue.add(reqVo);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    redissonDelayQueue.add(reqVo);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> List&lt;Object&gt; <span class="title function_">getMethodParamList</span><span class="params">(Method method, Map&lt;String, Object&gt; paramMap)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        List&lt;Object&gt; objectList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 利用Spring提供的类获取方法形参名</span></span><br><span class="line">        <span class="type">DefaultParameterNameDiscoverer</span> <span class="variable">nameDiscoverer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DefaultParameterNameDiscoverer</span>();</span><br><span class="line">        String[] param = nameDiscoverer.getParameterNames(method);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; method.getParameterTypes().length; i++) &#123;</span><br><span class="line">            Class&lt;?&gt; parameterType = method.getParameterTypes()[i];</span><br><span class="line"></span><br><span class="line">            <span class="type">Object</span> <span class="variable">object</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">            <span class="comment">// 基本类型不支持，支持包装类</span></span><br><span class="line">            <span class="type">String</span> <span class="variable">paramKey</span> <span class="operator">=</span> param[i];</span><br><span class="line">            <span class="keyword">if</span> (WRAP_CLASS.contains(parameterType)) &#123;</span><br><span class="line">                <span class="keyword">if</span> (param != <span class="literal">null</span> &amp;&amp; paramMap.containsKey(paramKey)) &#123;</span><br><span class="line">                    object = paramMap.get(paramKey);</span><br><span class="line">                    object = ConvertUtils.convert(object, parameterType);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!parameterType.isPrimitive()) &#123;</span><br><span class="line">                <span class="keyword">if</span> (parameterType.isAssignableFrom(List.class) || parameterType.isAssignableFrom(Map.class) || parameterType.isAssignableFrom(Set.class)) &#123;</span><br><span class="line">                    object = paramMap.get(paramKey);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    object = parameterType.newInstance();</span><br><span class="line">                    BeanUtils.populate(object, paramMap);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            objectList.add(object);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> objectList;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>加入环境上下文，以便在项目启动的时候开始监听并执行对redis队列的消费，然后开启一个新的线程去实现相关的业务</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">QueueContextAware</span> <span class="keyword">implements</span> <span class="title class_">ApplicationContextAware</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> RedissonClient redissonClient;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setApplicationContext</span><span class="params">(ApplicationContext applicationContext)</span> <span class="keyword">throws</span> BeansException &#123;</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">thread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; &#123;</span><br><span class="line">            Map&lt;String, RedisDelayedQueueListener&gt; map = applicationContext.getBeansOfType(RedisDelayedQueueListener.class);</span><br><span class="line">            <span class="keyword">for</span> (Map.Entry&lt;String, RedisDelayedQueueListener&gt; taskEventListenerEntry : map.entrySet()) &#123;</span><br><span class="line">                <span class="type">String</span> <span class="variable">listenerName</span> <span class="operator">=</span> taskEventListenerEntry.getValue().getClass().getName();</span><br><span class="line">                startThread(listenerName, taskEventListenerEntry.getValue());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        thread.setName(<span class="string">&quot;redis-delayqueue&quot;</span>);</span><br><span class="line">        thread.start();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 启动线程获取队列*</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> queueName                 queueName</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> redisDelayedQueueListener 任务监听回调</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> &lt;T&gt;                       泛型</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> &lt;T&gt; <span class="keyword">void</span> <span class="title function_">startThread</span><span class="params">(String queueName, RedisDelayedQueueListener redisDelayedQueueListener)</span> &#123;</span><br><span class="line">        RBlockingQueue&lt;T&gt; blockingFairQueue = redissonClient.getBlockingQueue(queueName);</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">thread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; &#123;</span><br><span class="line">            log.info(<span class="string">&quot;启动监听队列&quot;</span> + queueName);</span><br><span class="line">            <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    <span class="type">T</span> <span class="variable">t</span> <span class="operator">=</span> blockingFairQueue.take();</span><br><span class="line">                    log.info(<span class="string">&quot;监听队列&#123;&#125;,获取到值:&#123;&#125;&quot;</span>, queueName, t);</span><br><span class="line">                    <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; &#123;</span><br><span class="line">                        redisDelayedQueueListener.invoke(t);</span><br><span class="line">                    &#125;).start();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                    log.info(<span class="string">&quot;监听队列错误,&quot;</span>, e);</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        Thread.sleep(<span class="number">10000</span>);</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (InterruptedException ex) &#123;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        thread.setName(queueName);</span><br><span class="line">        thread.start();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>定义RedissonDelayQueue类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RedissonDelayQueueDemo</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> RedissonClient redissonClient;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> RBlockingQueue rBlockingQueue;</span><br><span class="line">    <span class="keyword">private</span> RDelayedQueue rDelayedQueue;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostConstruct</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">init</span><span class="params">()</span> &#123;</span><br><span class="line">        rBlockingQueue = redissonClient.getBlockingQueue(TaskListener.class.getName());</span><br><span class="line">        rDelayedQueue = redissonClient.getDelayedQueue(rBlockingQueue);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">add</span><span class="params">(TaskBodyDto reqVo)</span> &#123;</span><br><span class="line">        rDelayedQueue.offer(reqVo, reqVo.getDelay(), reqVo.getTimeUnit());</span><br><span class="line">        log.info(<span class="string">&quot;增加了延时队列&#123;&#125;&quot;</span>, reqVo);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 增加订单延时队列 -单位为秒</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> id         id,传入一个唯一标识,可以是业务ID</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> beanName   类名</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> methodName 方法名</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> paramMap   参数</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> delay      延迟时间</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">add</span><span class="params">(String id, String beanName, String methodName, Map&lt;String, Object&gt; paramMap, <span class="type">long</span> delay)</span> &#123;</span><br><span class="line">        TaskBodyDto reqVo= <span class="keyword">new</span> <span class="title class_">TaskBodyDto</span>();</span><br><span class="line">        <span class="type">String</span> <span class="variable">idKey</span> <span class="operator">=</span> beanName + <span class="string">&quot;:&quot;</span> + methodName + <span class="string">&quot;:&quot;</span> + id;</span><br><span class="line">        log.info(<span class="string">&quot;增加了延时队列&quot;</span> + idKey);</span><br><span class="line">        reqVo.setIdKey(idKey);</span><br><span class="line">        reqVo.setBeanName(beanName);</span><br><span class="line">        reqVo.setMethodName(methodName);</span><br><span class="line">        reqVo.setParamMap(paramMap);</span><br><span class="line">        reqVo.setTimeUnit(TimeUnit.SECONDS);</span><br><span class="line">        reqVo.setDelay(delay);</span><br><span class="line">        <span class="built_in">this</span>.add(reqVo);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 删除延时队列</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> id         id,传入一个唯一标识,可以是业务ID</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> beanName   类名</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> methodName 方法名</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">remove</span><span class="params">(String id, String beanName, String methodName)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">idKey</span> <span class="operator">=</span> beanName + <span class="string">&quot;:&quot;</span> + methodName + <span class="string">&quot;:&quot;</span> + id;</span><br><span class="line">        log.info(<span class="string">&quot;删除了延时队列：&quot;</span> + idKey);</span><br><span class="line">        RDelayedQueue&lt;TaskBodyDto&gt; delayedQueue = rDelayedQueue;</span><br><span class="line">        Stream&lt;TaskBodyDto&gt; stream = delayedQueue.stream().filter(s -&gt; idKey.equals(s.getIdKey()));</span><br><span class="line">        List&lt;TaskBodyDto&gt; c = stream.collect(Collectors.toList());</span><br><span class="line">        <span class="keyword">if</span> (!c.isEmpty()) &#123;</span><br><span class="line"><span class="comment">//            log.info(&quot;删除延时队列&#123;&#125;&quot;, c);</span></span><br><span class="line">            delayedQueue.remove(c.get(<span class="number">0</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后写一个工具类方便调用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RedissionDelayQueueUtils</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> RedissonDelayQueue redissonDelayQueue;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> RedissonDelayQueue staticRedissonDelayQueue;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostConstruct</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">init</span><span class="params">()</span> &#123;</span><br><span class="line">        staticRedissonDelayQueue = redissonDelayQueue;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 添加定时任务</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> id 唯一标识,可以是业务ID</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> paramMap 参数 key-value</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> beanName bean类名称 注意类名需要小写</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> methodName 方法名</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> seconds 延迟时间 单位为秒</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">addDelayQueue</span><span class="params">(String id, Map&lt;String, Object&gt; paramMap, String beanName, String methodName, Integer seconds)</span> &#123;</span><br><span class="line">        staticRedissonDelayQueue.add(id, beanName, methodName, paramMap, seconds);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 删除定时任务</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> id 唯一标识,可以是业务ID</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> beanName bean类名称 注意类名需要小写</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> methodName 方法名</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">removeDelayQueue</span><span class="params">(String id, String beanName, String methodName)</span> &#123;</span><br><span class="line">        staticRedissonDelayQueue.remove(id, beanName, methodName);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>都配置好之后，可以写个方法进行测试<br>比如我要三十分钟之后执行test方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">test</span><span class="params">(String name,String value)</span>&#123;</span><br><span class="line">        <span class="comment">//执行业务代码</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后在需要执行这个功能的地方进行调用，比如用户在界面选择了发布时间之后，后端接口收到请求进行处理</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//延时队列</span></span><br><span class="line">      Map&lt;String, Object&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">      map.put(<span class="string">&quot;name&quot;</span>,<span class="string">&quot;张三&quot;</span>);</span><br><span class="line">      map.put(<span class="string">&quot;value&quot;</span>,<span class="string">&quot;这是value&quot;</span>);</span><br><span class="line">      RedissionDelayQueueUtils.addDelayQueue(<span class="string">&quot;唯一标识&quot;</span>,map,<span class="string">&quot;test&quot;</span>,<span class="string">&quot;test&quot;</span>, (<span class="type">int</span>) DateUtil.between(<span class="string">&quot;用户选择的时间&quot;</span>,<span class="keyword">new</span> <span class="title class_">Date</span>(), DateUnit.SECOND));</span><br><span class="line">      </span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意事项：这上面的map便是被执行的方法需要的一些参数,切记不能直接传入Object类，只能通过基本数据类型进行传递，传入的bean类名也需要小写，DateUtil.between()这个方法是用的hutool工具类里面的日期工具类，为了算出用户选择的时间和当前时间相差多少秒，可自行更改为适合自己的方法，反正最后只需要取到两者时间差多少秒即可</p>
+</blockquote>
+<p>后续redis的配置那些照常配置即可</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>总结下来其实思路还是比较明确，就是通过redis延时队列的机制，这边配置好相关的参数然后加入到redis里面去，配置好监听器之后由redis进行监听触发，然后再通过反射的方式取到需要执行的bean和方法进行执行即可，其实延时队列的方法很多，我上面还推荐了一些其他的方法，通过给出的关键字即可查阅相关的资料，总之根据自身的情况选择最适合的方法就行</p>
+<p>最后不管采取哪种方式，建议在触发以及执行的地方及时把日志打印出来，方便后期调试以及对问题的定位</p>
+</blockquote>
+</div>
+        
+          <div class="post-copyright">
+                  <div class="copyright-item">
+                      <span> Author: Fueen</span>
+                  </div>
+                  <div class="copyright-item">
+                      <span> Link: <a href="https://ifueen.com/2023/11/30/skill/Java%E9%80%9A%E8%BF%87Redis%E8%BF%9B%E8%A1%8C%E5%BB%B6%E6%97%B6%E9%98%9F%E5%88%97%EF%BC%8C%E5%AE%9A%E6%97%B6%E5%8F%91%E5%B8%83%E6%B6%88%E6%81%AF(%E6%A0%B9%E6%8D%AE%E7%94%A8%E6%88%B7%E9%80%89%E6%8B%A9%E6%97%B6%E9%97%B4%E8%BF%9B%E8%A1%8C%E5%8F%91%E5%B8%83)/">https://ifueen.com/2023/11/30/skill/Java%E9%80%9A%E8%BF%87Redis%E8%BF%9B%E8%A1%8C%E5%BB%B6%E6%97%B6%E9%98%9F%E5%88%97%EF%BC%8C%E5%AE%9A%E6%97%B6%E5%8F%91%E5%B8%83%E6%B6%88%E6%81%AF(%E6%A0%B9%E6%8D%AE%E7%94%A8%E6%88%B7%E9%80%89%E6%8B%A9%E6%97%B6%E9%97%B4%E8%BF%9B%E8%A1%8C%E5%8F%91%E5%B8%83)/</a></span>
+                  </div>
+                  <div class="copyright-item">
+                      <span> License: 本博客所有文章除特别声明外，均采用许可协议 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> 转载请注明出处！</span>
+                  </div>
+          </div>
+        
+  </div>
+
+  <div class="share-reward">
+    <div class="share">
+        
+<div class="social-share" data-sites="facebook,twitter,wechat,weibo,qq"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script>
+
+
+      </div>
+        <div class="reward">
+          
+        </div>
+    </div>
+    
+    <div class="post_tags">
+      
+    </div>
+    <div class="post-nav">
+      
+      
+        <div class="post-nav-next post-nav-item">
+            <a href="/2023/07/02/skill/SpringBoot%E9%92%89%E9%92%89%E9%80%9A%E8%AE%AF%E5%BD%95%E4%BF%A1%E6%81%AF%E5%90%8C%E6%AD%A5/" >SpringBoot钉钉通讯录信息同步<i class="fa fa-chevron-right"></i></a>
+        </div>
+      
+    </div>
+      
+
+
+
+  <div id="valine"></div>
+  <script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+  <script>
+        new Valine({
+          el: '#valine',
+          appId: "",
+          appKey: "",
+          avatar: "mm",
+          lang: "",
+          meta: 'nick,mail,link'.split(','),
+          requiredFields: 'nick,mail'.split(','),
+          placeholder: "评论记得带上邮箱,你的留言我会马上收到邮箱提醒哒",
+          pageSize:'10',
+          recordIP: 'false',
+          serverURLs: "",
+          emojiCDN: "",
+          enableQQ: "true",
+        });
+  </script>
+  
+
+</article>
+
+    
+<a id="gotop" href="javascript:" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    
+
+
+
+
+
+
+    
+<div id="bottom-outer">
+    <div id="bottom-inner">
+        © 2019-2023 <i class="fa fa-heart" id="heart"></i> Fueen 
+        <br>
+        Powered by 
+        <a target="_blank" rel="noopener" href="http://hexo.io">hexo</a>
+        
+          <div class="icp-info">
+            
+          <a href="" target="_blank"> </a>
+        </div>
+        
+    </div>  
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/layui-src@2.5.5/dist/layui.min.js"></script>
+
+
+
+  
+    <script src="/js/script.js"></script>
+  
+    <script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script>
+  
+
+ 
+
+
+
+  <script>
+    window.lazyLoadOptions = {
+      elements_selector: 'img',
+      threshold: 0
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script>   
+  
+
+
+  <script>
+    var images = $('img').not('.nav-logo img').not('.card img').not($('a>img')).not('.reward-content img')
+    images.each(function (i, o) {
+      var lazyloadSrc = $(o).attr('data-src') ? $(o).attr('data-src') : $(o).attr('src')
+      $(o).wrap(`<a href="${lazyloadSrc}" data-fancybox="group" data-caption="${$(o).attr('alt')}" class="fancybox"></a>`)
+    })
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script>
+  <script>
+        $().fancybox({
+      selector: '[data-fancybox]',
+      loop: true,
+      transitionEffect: 'slide',
+      protect: true,
+      buttons: ['slideShow', 'fullScreen', 'thumbs', 'close']
+    })
+  </script>   
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script>
+  
+
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js"></script>
+<script>
+!function (e, t, a) {
+  var initCopyCode = function(){
+    var copyHtml = '';
+    copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+    copyHtml += '  <i class="fa fa-clipboard"></i><span>复制</span>';
+    copyHtml += '</button>';
+    $(".highlight .code pre").before(copyHtml);
+    new ClipboardJS('.btn-copy', {
+      target: function(trigger) {
+        return trigger.nextElementSibling;
+      }
+    });
+  }
+  initCopyCode();
+}(window, document);
+</script>  
+  
+
+<script>
+  var btntop = $('#gotop');
+  btntop.on('click', function (e) {
+    e.preventDefault();
+    $('html, body').animate({ scrollTop: 0 }, '300');
+  });
+
+  var $table = $('.content table').not($('figure.highlight > table'))
+$table.each(function () {
+  $(this).wrap('<div class="table-wrap"></div>')
+})
+</script>
+
+
+
+</html>
