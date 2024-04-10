@@ -1,0 +1,394 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+      <meta name="author" content="Fueen">
+  
+  
+  
+      <meta name="description" content="他人即地狱">
+  
+  
+  
+    <link rel="alternate" href="/atom.xml " title="关山难越" type="application/atom+xml">
+  
+
+  
+
+  <title>丰富的Java工具类库Hutool | 关山难越</title>
+
+  
+
+  
+
+  
+
+  <link rel="stylesheet" href="/css/style.css" >
+  <link rel="stylesheet" href="/css/partial/dark.css" >
+
+  
+  
+  
+
+  
+    
+      <link rel="stylesheet" href="/css/partial/highlight/atom-one-light.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/a2396837/CDN@latest/css/iconfont.css">
+    
+  
+
+  
+    <script src="/js/todark.js"></script>
+    
+<meta name="generator" content="Hexo 7.1.1"></head>
+</html>
+    
+<div class="nav index" style="height: 60px;">
+    <div class="title animated fadeInDown">
+        <div class="layui-container">
+            <div class="nav-list">
+                
+                <ul class="layui-nav" lay-filter="">
+                    
+                        
+                        
+                        
+                        
+                    <li class="layui-nav-item">
+                        <a href="/ ">
+                            <i class=" 主页" style="color:;"></i>
+                            <span class="layui-nav-item-name">主页</span>
+                        </a>
+                    </li>
+                    
+                        
+                        
+                        
+                        
+                    <li class="layui-nav-item">
+                        <a href="/categories/生活/ ">
+                            <i class=" 生活" style="color:;"></i>
+                            <span class="layui-nav-item-name">生活</span>
+                        </a>
+                    </li>
+                    
+                        
+                        
+                        
+                        
+                    <li class="layui-nav-item">
+                        <a href="/categories/技术/ ">
+                            <i class=" 技术" style="color:;"></i>
+                            <span class="layui-nav-item-name">技术</span>
+                        </a>
+                    </li>
+                    
+                        
+                        
+                        
+                        
+                    <li class="layui-nav-item">
+                        <a href="/about/ ">
+                            <i class=" 关于" style="color:;"></i>
+                            <span class="layui-nav-item-name">关于</span>
+                        </a>
+                    </li>
+                    
+                    
+                        <li class="layui-nav-item" id="btn-toggle-dark">🌙</li>
+                    
+                    <span class="layui-nav-bar" style="left: 342px; top: 78px; width: 0px; opacity: 0;"></span>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+    
+<header class="header">
+        
+            <div class="logo">
+                    <a href="/"><img src="https://my-pic-1303449483.cos.ap-guangzhou.myqcloud.com/%E9%A3%9E%E4%B9%A620230227-111023.jpg" onerror=this.onerror=null,this.src="/img/loading.gif"></a>
+            </div>
+         
+    </div>
+     
+
+            <div class="motto">
+                <span>谁悲失路之人</span>
+            </div>
+    
+     
+</header>
+
+    
+<article id="post">
+  <div class="post-title">丰富的Java工具类库Hutool</div>
+  
+<div class="post-meta">
+    
+    
+      <div class="post-meta-item date">
+        <span title="Created 2020.03.29"><i class="far fa-calendar-alt"></i> 2020.03.29</span>
+      </div>
+      <div class="post-meta-item updated">
+        <span title="Updated 2023.03.30"><i class="far fa-calendar-check"></i> 2023.03.30</span>
+      </div>
+     
+    
+      <div class="post-meta-item categories">
+        
+          <i class="fas fa-inbox article-meta__icon"></i> <a href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>
+        
+      </div>
+     
+    
+     <div class="post-meta-item wordcount">
+        
+          <i class="fas fa-pencil-alt"></i> <span class="post-count">968 words</span>
+           
+        
+          <i class="far fa-clock"></i> <span class="post-count">3 min</span>
+                               
+      </div>
+     
+</div>
+
+
+  
+  <div class="content">
+        <div><h1 id="Hutool"><a href="#Hutool" class="headerlink" title="Hutool"></a>Hutool</h1><p>[TOC]</p>
+<h2 id="为什么会选择Hutool"><a href="#为什么会选择Hutool" class="headerlink" title="为什么会选择Hutool"></a>为什么会选择Hutool</h2><p>​	作为Java开发者，个人而言，我是不喜欢去写一些重复性的功能代码😵😵😵😵😵，繁琐且沉闷，没有多大的实际意义。其实不光是我个人，绝大部分开发者应该都是这样的吧。每次需要用到一些通用性的功能时，第一个想到的就是去网上搜索相应的工具类代码，直接CV过来修改便在项目中开始使用🤣🤣🤣🤣。但是这样总觉得少了一点结构的完整性和美感，拷贝过来的工具类和自己写的业务代码组建起来的结构有一些的突兀(虽然自己是个菜逼，但是好的审美观还是要有的)，这时候，我发现了Hutool这个神奇的工具类库</p>
+<p>​	Python有着丰富的第三方库，JavaScript也有着非常好的支持，相对而言，Java生态上面真正意义上的第三方库真的并不是很多🤧🤧🤧🤧🤧(别跟我扯什么框架)，以前写安卓的时候GitHub上面一堆第三方库用着非常爽，这让我一直对于第三方类库一直保持着喜爱，对于Hutool，我也记不清是怎么发现这个类库的，当时是无意间搜索出来，看了作者写的文档简介后，觉得这应该是一款很”细心”的工具，然后试探性的用了几个功能，最后感觉真不错😁😁😁</p>
+<p>​	Hutool地址:<a target="_blank" rel="noopener" href="https://www.hutool.cn/">https://www.hutool.cn/</a></p>
+<span id="more"></span>
+
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>​	太懒了懒得手打…直接拷贝的官方简介👇👇👇👇👇</p>
+<p>​	Hutool是一个小而全的Java工具类库，通过静态方法封装，降低相关API的学习成本，提高工作效率，使Java拥有函数式语言般的优雅，让Java语言也可以“甜甜的”。</p>
+<p>​	Hutool中的工具方法来自于每个用户的精雕细琢，它涵盖了Java开发底层代码中的方方面面，它既是大型项目开发中解决小问题的利器，也是小型项目中的效率担当；</p>
+<p>​	Hutool是项目中“util”包友好的替代，它节省了开发人员对项目中公用类和公用工具方法的封装时间，使开发专注于业务，同时可以最大限度的避免封装不完善带来的bug。</p>
+<h2 id="Hutool的使用"><a href="#Hutool的使用" class="headerlink" title="Hutool的使用"></a>Hutool的使用</h2><p>​	使用Hutool真的非常简单，直接添加Maven依赖到项目中，一步到位</p>
+<p>​	<img src= "/img/loading.gif" data-src="https://s1.ax1x.com/2020/03/29/GVPx2V.png"></p>
+<p>​	直接在pom中添加依赖</p>
+<p><img src= "/img/loading.gif" data-src="https://s1.ax1x.com/2020/03/29/GVFtYR.png"></p>
+<p>接下来就可以尽情使用了</p>
+<h3 id="Demo-通过Hutool发送邮件"><a href="#Demo-通过Hutool发送邮件" class="headerlink" title="Demo-通过Hutool发送邮件"></a>Demo-通过Hutool发送邮件</h3><p>​	Huool支持的功能很多，就写个Demo来测试一下</p>
+<p>​	比如项目中用到过的邮件功能，Hutool有着很好的封装，首先去读文档，添加邮件的依赖到pom.xml中</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 邮件--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.mail<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mail<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.4.7<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>​	<img src= "/img/loading.gif" data-src="https://s1.ax1x.com/2020/03/29/GVkEjK.png"></p>
+<p><img src= "/img/loading.gif" data-src="https://s1.ax1x.com/2020/03/29/GVktHg.png"></p>
+<p>​	在resource目录下面新建config目录，然后新建mail.seting文件，将内容修改为自己相应的地址</p>
+<p>​	<img src= "/img/loading.gif" data-src="https://s1.ax1x.com/2020/03/29/GVAqyV.png"></p>
+<p>​	测试一下给自己邮箱发送，一行代码搞定邮件发送🤠🤠</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MailUtil.send(<span class="string">&quot;1179722988@qq.com&quot;</span>,<span class="string">&quot;这不是邮件&quot;</span>,<span class="string">&quot;我们不能失去信仰&quot;</span>,<span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+
+<p><img src= "/img/loading.gif" data-src="https://s1.ax1x.com/2020/03/29/GVECS1.png"></p>
+<p>​	只需要一行代码，方便并且提升了代码的美感</p>
+<h2 id="后语"><a href="#后语" class="headerlink" title="后语"></a>后语</h2><p>​	上面测试Hutool发送邮件的功能，这只是这个类库中的一个小功能，还有许多我们常用的功能，它都提供了良好的封装支持，节约了我们开发时间的同时，大大加强了代码的可读性(我个人感觉是优美性??)，能够让我们在开发中不必为了那些繁琐的功能性的东西坏掉自己的心情，是一个非常不错的工具类库，非常实用</p>
+<p>​	🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈</p>
+</div>
+        
+          <div class="post-copyright">
+                  <div class="copyright-item">
+                      <span> Author: Fueen</span>
+                  </div>
+                  <div class="copyright-item">
+                      <span> Link: <a href="https://ifueen.com/2020/03/29/life/%E4%B8%B0%E5%AF%8C%E7%9A%84Java%E5%B7%A5%E5%85%B7%E7%B1%BB%E5%BA%93Hutool/">https://ifueen.com/2020/03/29/life/%E4%B8%B0%E5%AF%8C%E7%9A%84Java%E5%B7%A5%E5%85%B7%E7%B1%BB%E5%BA%93Hutool/</a></span>
+                  </div>
+                  <div class="copyright-item">
+                      <span> License: 本博客所有文章除特别声明外，均采用许可协议 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> 转载请注明出处！</span>
+                  </div>
+          </div>
+        
+  </div>
+
+  <div class="share-reward">
+    <div class="share">
+        
+<div class="social-share" data-sites="facebook,twitter,wechat,weibo,qq"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script>
+
+
+      </div>
+        <div class="reward">
+          
+        </div>
+    </div>
+    
+    <div class="post_tags">
+      
+    </div>
+    <div class="post-nav">
+      
+        <div class="post-nav-prev post-nav-item">
+            <a href="/2020/04/25/life/%E9%87%8E%E8%8D%89/" >野草<i class="fa fa-chevron-left"></i></a>
+        </div>
+      
+      
+        <div class="post-nav-next post-nav-item">
+            <a href="/2020/02/07/life/%E8%AE%B0%E5%87%A0%E6%AC%A1Java%E9%9D%A2%E7%BB%8F/" >记几次Java面经<i class="fa fa-chevron-right"></i></a>
+        </div>
+      
+    </div>
+      
+
+
+
+  <div id="valine"></div>
+  <script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+  <script>
+        new Valine({
+          el: '#valine',
+          appId: "",
+          appKey: "",
+          avatar: "mm",
+          lang: "",
+          meta: 'nick,mail,link'.split(','),
+          requiredFields: 'nick,mail'.split(','),
+          placeholder: "评论记得带上邮箱,你的留言我会马上收到邮箱提醒哒",
+          pageSize:'10',
+          recordIP: 'false',
+          serverURLs: "",
+          emojiCDN: "",
+          enableQQ: "true",
+        });
+  </script>
+  
+
+</article>
+
+    
+<a id="gotop" href="javascript:" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    
+
+
+
+
+
+
+    
+<div id="bottom-outer">
+    <div id="bottom-inner">
+        © 2019-2024 <i class="fa fa-heart" id="heart"></i> Fueen 
+        <br>
+        Powered by 
+        <a target="_blank" rel="noopener" href="http://hexo.io">hexo</a>
+        
+          <div class="icp-info">
+            
+          <a href="" target="_blank"> </a>
+        </div>
+        
+    </div>  
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/layui-src@2.5.5/dist/layui.min.js"></script>
+
+
+
+  
+    <script src="/js/script.js"></script>
+  
+    <script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script>
+  
+
+ 
+
+
+
+  <script>
+    window.lazyLoadOptions = {
+      elements_selector: 'img',
+      threshold: 0
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script>   
+  
+
+
+  <script>
+    var images = $('img').not('.nav-logo img').not('.card img').not($('a>img')).not('.reward-content img')
+    images.each(function (i, o) {
+      var lazyloadSrc = $(o).attr('data-src') ? $(o).attr('data-src') : $(o).attr('src')
+      $(o).wrap(`<a href="${lazyloadSrc}" data-fancybox="group" data-caption="${$(o).attr('alt')}" class="fancybox"></a>`)
+    })
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script>
+  <script>
+        $().fancybox({
+      selector: '[data-fancybox]',
+      loop: true,
+      transitionEffect: 'slide',
+      protect: true,
+      buttons: ['slideShow', 'fullScreen', 'thumbs', 'close']
+    })
+  </script>   
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script>
+  
+
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js"></script>
+<script>
+!function (e, t, a) {
+  var initCopyCode = function(){
+    var copyHtml = '';
+    copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+    copyHtml += '  <i class="fa fa-clipboard"></i><span>复制</span>';
+    copyHtml += '</button>';
+    $(".highlight .code pre").before(copyHtml);
+    new ClipboardJS('.btn-copy', {
+      target: function(trigger) {
+        return trigger.nextElementSibling;
+      }
+    });
+  }
+  initCopyCode();
+}(window, document);
+</script>  
+  
+
+<script>
+  var btntop = $('#gotop');
+  btntop.on('click', function (e) {
+    e.preventDefault();
+    $('html, body').animate({ scrollTop: 0 }, '300');
+  });
+
+  var $table = $('.content table').not($('figure.highlight > table'))
+$table.each(function () {
+  $(this).wrap('<div class="table-wrap"></div>')
+})
+</script>
+
+
+
+</html>

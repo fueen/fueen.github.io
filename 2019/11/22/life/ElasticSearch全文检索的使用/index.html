@@ -1,0 +1,468 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+      <meta name="author" content="Fueen">
+  
+  
+  
+      <meta name="description" content="他人即地狱">
+  
+  
+  
+    <link rel="alternate" href="/atom.xml " title="关山难越" type="application/atom+xml">
+  
+
+  
+
+  <title>ElasticSearch全文搜索的使用 | 关山难越</title>
+
+  
+
+  
+
+  
+
+  <link rel="stylesheet" href="/css/style.css" >
+  <link rel="stylesheet" href="/css/partial/dark.css" >
+
+  
+  
+  
+
+  
+    
+      <link rel="stylesheet" href="/css/partial/highlight/atom-one-light.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/a2396837/CDN@latest/css/iconfont.css">
+    
+  
+
+  
+    <script src="/js/todark.js"></script>
+    
+<meta name="generator" content="Hexo 7.1.1"></head>
+</html>
+    
+<div class="nav index" style="height: 60px;">
+    <div class="title animated fadeInDown">
+        <div class="layui-container">
+            <div class="nav-list">
+                
+                <ul class="layui-nav" lay-filter="">
+                    
+                        
+                        
+                        
+                        
+                    <li class="layui-nav-item">
+                        <a href="/ ">
+                            <i class=" 主页" style="color:;"></i>
+                            <span class="layui-nav-item-name">主页</span>
+                        </a>
+                    </li>
+                    
+                        
+                        
+                        
+                        
+                    <li class="layui-nav-item">
+                        <a href="/categories/生活/ ">
+                            <i class=" 生活" style="color:;"></i>
+                            <span class="layui-nav-item-name">生活</span>
+                        </a>
+                    </li>
+                    
+                        
+                        
+                        
+                        
+                    <li class="layui-nav-item">
+                        <a href="/categories/技术/ ">
+                            <i class=" 技术" style="color:;"></i>
+                            <span class="layui-nav-item-name">技术</span>
+                        </a>
+                    </li>
+                    
+                        
+                        
+                        
+                        
+                    <li class="layui-nav-item">
+                        <a href="/about/ ">
+                            <i class=" 关于" style="color:;"></i>
+                            <span class="layui-nav-item-name">关于</span>
+                        </a>
+                    </li>
+                    
+                    
+                        <li class="layui-nav-item" id="btn-toggle-dark">🌙</li>
+                    
+                    <span class="layui-nav-bar" style="left: 342px; top: 78px; width: 0px; opacity: 0;"></span>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+    
+<header class="header">
+        
+            <div class="logo">
+                    <a href="/"><img src="https://my-pic-1303449483.cos.ap-guangzhou.myqcloud.com/%E9%A3%9E%E4%B9%A620230227-111023.jpg" onerror=this.onerror=null,this.src="/img/loading.gif"></a>
+            </div>
+         
+    </div>
+     
+
+            <div class="motto">
+                <span>谁悲失路之人</span>
+            </div>
+    
+     
+</header>
+
+    
+<article id="post">
+  <div class="post-title">ElasticSearch全文搜索的使用</div>
+  
+<div class="post-meta">
+    
+    
+      <div class="post-meta-item date">
+        <span title="Created 2019.11.22"><i class="far fa-calendar-alt"></i> 2019.11.22</span>
+      </div>
+      <div class="post-meta-item updated">
+        <span title="Updated 2023.03.30"><i class="far fa-calendar-check"></i> 2023.03.30</span>
+      </div>
+     
+    
+      <div class="post-meta-item categories">
+        
+          <i class="fas fa-inbox article-meta__icon"></i> <a href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
+        
+      </div>
+     
+    
+     <div class="post-meta-item wordcount">
+        
+          <i class="fas fa-pencil-alt"></i> <span class="post-count">2.9k words</span>
+           
+        
+          <i class="far fa-clock"></i> <span class="post-count">13 min</span>
+                               
+      </div>
+     
+</div>
+
+
+  
+  <div class="content">
+        <div><h1 id="ElasticSearch"><a href="#ElasticSearch" class="headerlink" title="ElasticSearch"></a>ElasticSearch</h1><p>[TOC]</p>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>ES是Lucene的一个封装工具，解决了Lucene配置麻烦，不支持分布式的缺点</p>
+<p>ES也使用Java开发并使用Lucene作为其核心来实现所有索引和搜索的功能，但是它的目的是通过简单的 RESTful API来隐藏Lucene的复杂性，从而让全文搜索变得简单</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>官方下载：<a target="_blank" rel="noopener" href="https://www.elastic.co/downloads/elasticsearch">https://www.elastic.co/downloads/elasticsearch</a></p>
+<p>然后解压，运行bin路径下的elasticsearch.bat文件</p>
+<span id="more"></span>
+
+<p><img src= "/img/loading.gif" data-src="https://s2.ax1x.com/2019/11/20/MfyQeS.png" alt="1574244745968"></p>
+<p><img src= "/img/loading.gif" data-src="https://s2.ax1x.com/2019/11/20/Mfyldg.png" alt="1574244783437"></p>
+<p>这样就成功运行了，然后在浏览器输入localhost:9200</p>
+<p><img src= "/img/loading.gif" data-src="https://s2.ax1x.com/2019/11/20/MfyYzq.png" alt="1574244817786"></p>
+<p>出现这个界面就代表成功启动</p>
+<h3 id="辅助工具Kibana5"><a href="#辅助工具Kibana5" class="headerlink" title="辅助工具Kibana5"></a>辅助工具Kibana5</h3><p>在使用MySql的时候，可以用Navcation来进行可视化管理，Kibana5就是可以对ElasticSearch进行可视化管理的一款工具</p>
+<p>官方下载：<a target="_blank" rel="noopener" href="https://www.elastic.co/downloads/kibana">https://www.elastic.co/downloads/kibana</a></p>
+<p>解压然后修改config&#x2F;kibana.yml，设置elasticsearch.url的值为已启动的ES地址值(一般不需要修改，默认就是对的)</p>
+<p>启动Kibana5 : bin\kibana.bat</p>
+<p>默认访问地址：<a target="_blank" rel="noopener" href="http://localhost:5601/">http://localhost:5601</a></p>
+<p><img src= "/img/loading.gif" data-src="https://s2.ax1x.com/2019/11/20/MfyXm8.png"></p>
+<p>成功访问</p>
+<h3 id="增删改查操作"><a href="#增删改查操作" class="headerlink" title="增删改查操作"></a>增删改查操作</h3><p>首先明确一点，ES是完全遵从了Restful风格的，关于Restful风格，随便一搜一大堆文章，这里就不详细介绍了</p>
+<p>在ES中存储数据的行为就叫做索引(indexing)，文档归属于一种类型(type),而这些类型存在于索引(index)中，我们可以简单的对比传统数据库和ES的对应关系：</p>
+<p>关系数据库（MYSQL） -&gt; 数据库DB-&gt; 表TABLE-&gt; 行ROW-&gt; 列Column</p>
+<p>ES的基础语法</p>
+<ul>
+<li>增加:PUT PUT {index}&#x2F;{type}&#x2F;{id}</li>
+<li>修改：同PUT {index}&#x2F;{type}&#x2F;{id}</li>
+<li>删除：DELETE {index}&#x2F;{type}&#x2F;{id}</li>
+<li>查询：GET {index}&#x2F;{type}&#x2F;{id}</li>
+</ul>
+<p>下面通过几个Demo来进行演示</p>
+<p><img src= "/img/loading.gif" data-src="https://s2.ax1x.com/2019/11/20/MfRP5F.png"></p>
+<h3 id="IK分词器"><a href="#IK分词器" class="headerlink" title="IK分词器"></a>IK分词器</h3><p>ES默认对英文文本的分词器支持较好，但和lucene一样，如果需要对中文进行全文检索，那么需要使用中文分词器，同lucene一样，在使用中文全文检索前，需要集成IK分词器</p>
+<p>GitHub下载：<a target="_blank" rel="noopener" href="https://github.com/medcl/elasticsearch-analysis-ik">https://github.com/medcl/elasticsearch-analysis-ik</a></p>
+<p>解压，并将其内容放置于ES根目录&#x2F;plugins&#x2F;ik</p>
+<p>然后重启ES</p>
+<p>测试分词</p>
+<p><img src= "/img/loading.gif" data-src="https://s2.ax1x.com/2019/11/20/MfhvJU.png"></p>
+<p><strong>注意：IK分词器有两种类型，分别是ik_smart分词器和ik_max_word分词器。</strong></p>
+<p><strong>ik_smart: 会做最粗粒度的拆分，比如会将“中华人民共和国国歌”拆分为“中华人民共和国,国歌”。</strong></p>
+<p><strong>ik_max_word:会将文本做最细粒度的拆分，比如会将“中华人民共和国国歌”拆分为“中华人民共和国,中华人民,中华,华人,人民共和国,人民,人,民,共和国,共和,和,国国,国歌”，会穷尽各种可能的组合</strong></p>
+<h3 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h3><p>ES索引的增删改查</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"># 创建索引库</span><br><span class="line"></span><br><span class="line">PUT imp</span><br><span class="line">&#123;</span><br><span class="line">  &quot;settings&quot;: &#123;</span><br><span class="line">    &quot;number_of_shards&quot;: 5,</span><br><span class="line">    &quot;number_of_replicas&quot;: 1</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"># 查询索引库</span><br><span class="line"></span><br><span class="line">GET _cat/indices</span><br><span class="line"></span><br><span class="line"># 查看指定索引库</span><br><span class="line">GET _cat/indices/imp</span><br><span class="line"></span><br><span class="line"># 修改索引库</span><br><span class="line"></span><br><span class="line"># 删除索引库</span><br><span class="line">DELETE imp</span><br></pre></td></tr></table></figure>
+
+<h2 id="DSL查询"><a href="#DSL查询" class="headerlink" title="DSL查询"></a>DSL查询</h2><p>DSL过滤语句和DSL查询语句非常相似，但是它们的使用目的却不同：DSL过滤查询文档的方式更像是对于我的条件”有”或者”没有”（等于 ；不等于），而DSL查询语句则像是”有多像”(模糊查询)</p>
+<p>DSL过滤和DSL查询在性能上的区别：</p>
+<ul>
+<li>过滤结果可以缓存并应用到后续请求。-&gt;  精确过滤后的结果拿去模糊查询性能高</li>
+<li>查询语句同时匹配文档，计算相关性，所以更耗时，且不缓存。</li>
+<li>过滤语句可有效地配合查询语句完成文档过滤</li>
+</ul>
+<p>案例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">#DSL查询</span><br><span class="line">GET fueen/person/_search</span><br><span class="line">&#123;</span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;match&quot;: &#123;</span><br><span class="line">      &quot;speak&quot;: &quot;高级动物&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 创建测试数据</span><br><span class="line">PUT fueen/user/5</span><br><span class="line">&#123;</span><br><span class="line">  &quot;id&quot;:5,</span><br><span class="line">  &quot;sex&quot;:&quot;SAUMAG Note10 Pro&quot;,</span><br><span class="line">  &quot;ceagtor&quot;:&quot;手机&quot;,</span><br><span class="line">  &quot;money&quot;:8000</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">GET fueen/user/_search?_source</span><br><span class="line"></span><br><span class="line"># DSL过滤</span><br><span class="line"></span><br><span class="line">GET fueen/user/_search</span><br><span class="line">&#123;</span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;bool&quot;: &#123;</span><br><span class="line">      &quot;must&quot;: [</span><br><span class="line">        &#123;&quot;match&quot;: &#123;</span><br><span class="line">          &quot;ceagtor&quot;: &quot;手机&quot;</span><br><span class="line">        &#125;&#125;</span><br><span class="line">      ],</span><br><span class="line">      &quot;filter&quot;: &#123;</span><br><span class="line">        &quot;range&quot;: &#123;</span><br><span class="line">          &quot;money&quot;: &#123;</span><br><span class="line">            &quot;gte&quot;: 6000,</span><br><span class="line">            &quot;lte&quot;: 8000</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;from&quot;: 0, </span><br><span class="line">  &quot;size&quot;: 10,</span><br><span class="line">  &quot;_source&quot;: [&quot;sex&quot;,&quot;ceagtor&quot;,&quot;money&quot;],</span><br><span class="line">  &quot;sort&quot;: [</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;money&quot;: &quot;desc&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="文档映射"><a href="#文档映射" class="headerlink" title="文档映射"></a>文档映射</h2><p>ES的文档映射(mapping)机制用于进行字段类型确认，将每个字段匹配为一种确定的数据类型</p>
+<p>就是规定了每个输入字段值的数据类型</p>
+<p>案例</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"># 映射</span><br><span class="line">PUT imp/life/_mapping</span><br><span class="line">&#123;</span><br><span class="line">  &quot;life&quot;:&#123;</span><br><span class="line">    &quot;properties&quot;:&#123;</span><br><span class="line">      &quot;id&quot;:&#123;</span><br><span class="line">        &quot;type&quot;:&quot;long&quot;</span><br><span class="line">      &#125;,</span><br><span class="line">      &quot;name&quot;:&#123;</span><br><span class="line">        &quot;type&quot;:&quot;text&quot;,</span><br><span class="line">        &quot;analyzer&quot;:&quot;ik_smart&quot;,</span><br><span class="line">        &quot;search_analyzer&quot;:&quot;ik_smart&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 查看文档映射</span><br><span class="line">GET imp/_mapping/life</span><br><span class="line"></span><br><span class="line"># 删除映射</span><br><span class="line">DELETE imp</span><br><span class="line"></span><br><span class="line"># 动态模板</span><br><span class="line">PUT _template/kof_template  </span><br><span class="line">&#123;</span><br><span class="line">  &quot;template&quot;:   &quot;*&quot;,  </span><br><span class="line">  &quot;settings&quot;: &#123; &quot;number_of_shards&quot;: 1 &#125;, </span><br><span class="line">  &quot;mappings&quot;: &#123;</span><br><span class="line">    &quot;_default_&quot;: &#123;</span><br><span class="line">      &quot;_all&quot;: &#123; </span><br><span class="line">        &quot;enabled&quot;: false </span><br><span class="line">      &#125;,</span><br><span class="line">      &quot;dynamic_templates&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">          &quot;string_as_text&quot;: &#123; </span><br><span class="line">            &quot;match_mapping_type&quot;: &quot;string&quot;,</span><br><span class="line">            &quot;match&quot;:   &quot;*_text&quot;, </span><br><span class="line">            &quot;mapping&quot;: &#123;</span><br><span class="line">              &quot;type&quot;: &quot;text&quot;,</span><br><span class="line">              &quot;analyzer&quot;: &quot;ik_max_word&quot;,</span><br><span class="line">              &quot;search_analyzer&quot;: &quot;ik_max_word&quot;,</span><br><span class="line">              &quot;fields&quot;: &#123;</span><br><span class="line">                &quot;raw&quot;: &#123;</span><br><span class="line">                  &quot;type&quot;:  &quot;keyword&quot;,</span><br><span class="line">                  &quot;ignore_above&quot;: 256</span><br><span class="line">                &#125;</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          &quot;string_as_keyword&quot;: &#123; </span><br><span class="line">            &quot;match_mapping_type&quot;: &quot;string&quot;,</span><br><span class="line">            &quot;mapping&quot;: &#123;</span><br><span class="line">              &quot;type&quot;: &quot;keyword&quot;</span><br><span class="line">             &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="集群"><a href="#集群" class="headerlink" title="集群"></a>集群</h2><p>为什么需要ES集群</p>
+<p>和Redis一样，集群能够做很多事情</p>
+<ul>
+<li>单节点故障</li>
+<li>支持高并发</li>
+<li>海量数据存储</li>
+</ul>
+<p><strong>ES的集群节点</strong></p>
+<p><strong>主节点</strong></p>
+<p>node.master&#x3D;true,代表该节点有成为主资格，主节点的主要职责是和集群操作相关的内容，如<strong>创建或删除索引，跟踪哪些节点是群集的一部分，并决定哪些分片分配给相关的节点</strong>。一般会把主节点和数据节点分开，node.master&#x3D;true , node.data&#x3D;false</p>
+<p><strong>数据节点</strong></p>
+<p>node.data&#x3D;true,数据节点主要是存储索引数据的节点，<strong>主要对文档进行增删改查操作，聚合操作</strong>等,数据节点对CPU,IO,内存要求较高，优化节点的时候需要做状态监控，资源不够时要做节点扩充。配置：mode.master&#x3D;false,mode.data&#x3D;true</p>
+<p><strong>负载均衡节点</strong></p>
+<p>当主节点和数据节点配置都设置为false的时候，<strong>该节点只能处理路由请求，处理搜索，分发索引操作</strong>等，从本质上来说该客户节点表现为智能负载平衡器。配置：mode.master&#x3D;false,mode.data&#x3D;false</p>
+<h3 id="模拟搭建集群"><a href="#模拟搭建集群" class="headerlink" title="模拟搭建集群"></a>模拟搭建集群</h3><p>准备三个ES服务</p>
+<p>可以模拟出三个不同的文件，修改不同的端口</p>
+<p>配置说明</p>
+<ul>
+<li>Node1-配置</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># 统一的集群名</span><br><span class="line">cluster.name: my-ealsticsearch</span><br><span class="line"># 当前节点名</span><br><span class="line">node.name: node-1</span><br><span class="line"># 对外暴露端口使外网访问</span><br><span class="line">network.host: 127.0.0.1</span><br><span class="line"># 对外暴露端口</span><br><span class="line">http.port: 9201</span><br><span class="line">#集群间通讯端口号</span><br><span class="line">transport.tcp.port: 9301</span><br><span class="line">#集群的ip集合，可指定端口，默认为9300</span><br><span class="line">discovery.zen.ping.unicast.hosts: [&quot;127.0.0.1:9301&quot;,&quot;127.0.0.1:9302&quot;,&quot;127.0.0.1:9303&quot;]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Node2-配置</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># 统一的集群名</span><br><span class="line">cluster.name: my-ealsticsearch</span><br><span class="line"># 当前节点名</span><br><span class="line">node.name: node-2</span><br><span class="line"># 对外暴露端口使外网访问</span><br><span class="line">network.host: 127.0.0.1</span><br><span class="line"># 对外暴露端口</span><br><span class="line">http.port: 9202</span><br><span class="line">#集群间通讯端口号</span><br><span class="line">transport.tcp.port: 9302</span><br><span class="line">#集群的ip集合，可指定端口，默认为9300</span><br><span class="line">discovery.zen.ping.unicast.hosts: [&quot;127.0.0.1:9301&quot;,&quot;127.0.0.1:9302&quot;,&quot;127.0.0.1:9303&quot;]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Node3-配置</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># 统一的集群名</span><br><span class="line">cluster.name: my-ealsticsearch</span><br><span class="line"># 当前节点名</span><br><span class="line">node.name: node-3</span><br><span class="line"># 对外暴露端口使外网访问</span><br><span class="line">network.host: 127.0.0.1</span><br><span class="line"># 对外暴露端口</span><br><span class="line">http.port: 9203</span><br><span class="line">#集群间通讯端口号</span><br><span class="line">transport.tcp.port: 9303</span><br><span class="line">#集群的ip集合，可指定端口，默认为9300</span><br><span class="line">discovery.zen.ping.unicast.hosts: [&quot;127.0.0.1:9301&quot;,&quot;127.0.0.1:9302&quot;,&quot;127.0.0.1:9303&quot;]</span><br></pre></td></tr></table></figure>
+
+<p>分别启动三个ES节点 ， 访问：<a target="_blank" rel="noopener" href="http://127.0.0.1:9201/">http://127.0.0.1:9201/</a></p>
+<p><img src= "/img/loading.gif" data-src="https://s2.ax1x.com/2019/11/22/MTMVSg.png"></p>
+<p>然后再通过Kiban5去访问，修改默认配置路径为：elasticsearch.url: “<a target="_blank" rel="noopener" href="http://localhost:9201/">http://localhost:9201</a>“</p>
+<p><img src= "/img/loading.gif" data-src="https://s2.ax1x.com/2019/11/22/M7acsx.png"></p>
+<p>访问成功</p>
+<h2 id="Java操作ES"><a href="#Java操作ES" class="headerlink" title="Java操作ES"></a>Java操作ES</h2><p>创建一个Maven项目，在pom.xml中加入</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.elasticsearch.client<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>transport<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.2.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.logging.log4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>log4j-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.7<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.logging.log4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>log4j-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.7<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.12<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>compile<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>写一个连接ES的工具类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.ifueen.es;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.client.transport.TransportClient;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.common.settings.Settings;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.common.transport.InetSocketTransportAddress;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.transport.client.PreBuiltTransportClient;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.net.InetAddress;</span><br><span class="line"><span class="keyword">import</span> java.net.UnknownHostException;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * ES集群的工具类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ESClientUtil</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> TransportClient <span class="title function_">getClient</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">Settings</span> <span class="variable">settings</span> <span class="operator">=</span> Settings.builder()</span><br><span class="line">        .put(<span class="string">&quot;cluster.name&quot;</span>,<span class="string">&quot;my-ealsticsearch&quot;</span>)</span><br><span class="line">        .put(<span class="string">&quot;client.transport.sniff&quot;</span>, <span class="literal">true</span>).build();</span><br><span class="line">        </span><br><span class="line">        <span class="type">TransportClient</span> <span class="variable">client</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            client = <span class="keyword">new</span> <span class="title class_">PreBuiltTransportClient</span>(settings)</span><br><span class="line">                    .addTransportAddress(</span><br><span class="line">                    		<span class="keyword">new</span> <span class="title class_">InetSocketTransportAddress</span>(InetAddress.getByName(<span class="string">&quot;127.0.0.1&quot;</span>), <span class="number">9302</span>));</span><br><span class="line">        &#125; <span class="keyword">catch</span> (UnknownHostException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> client;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后开始测试</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.ifueen.es;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.action.bulk.BulkItemResponse;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.action.bulk.BulkRequestBuilder;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.action.bulk.BulkResponse;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.action.delete.DeleteRequestBuilder;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.action.delete.DeleteResponse;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.action.get.GetResponse;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.action.index.IndexRequestBuilder;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.action.index.IndexResponse;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.action.search.SearchRequestBuilder;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.action.search.SearchResponse;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.action.update.UpdateRequestBuilder;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.action.update.UpdateResponse;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.client.transport.TransportClient;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.index.query.BoolQueryBuilder;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.index.query.QueryBuilder;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.index.query.QueryBuilders;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.search.SearchHits;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Iterator;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 测试集群</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestESCluster</span> &#123;</span><br><span class="line">    <span class="comment">//获取客户端</span></span><br><span class="line">    <span class="type">TransportClient</span> <span class="variable">client</span> <span class="operator">=</span> ESClientUtil.getClient();</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 添加文档</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testadd</span><span class="params">()</span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//创建索引</span></span><br><span class="line">        <span class="type">IndexRequestBuilder</span> <span class="variable">index</span> <span class="operator">=</span> client.prepareIndex(<span class="string">&quot;fueen&quot;</span>, <span class="string">&quot;person&quot;</span>, <span class="string">&quot;1&quot;</span>);</span><br><span class="line">        Map&lt;String,Object&gt; data = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;String, Object&gt;();</span><br><span class="line">        data.put(<span class="string">&quot;id&quot;</span>,<span class="string">&quot;1&quot;</span>);</span><br><span class="line">        data.put(<span class="string">&quot;username&quot;</span>,<span class="string">&quot;fueen&quot;</span>);</span><br><span class="line">        data.put(<span class="string">&quot;speak&quot;</span>,<span class="string">&quot;我们不能失去信仰&quot;</span>);</span><br><span class="line">        <span class="comment">//添加</span></span><br><span class="line">        <span class="type">IndexResponse</span> <span class="variable">indexResponse</span> <span class="operator">=</span> index.setSource(data).get();</span><br><span class="line">        System.out.println(indexResponse);</span><br><span class="line">        client.close();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取文档</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testquery</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">GetResponse</span> <span class="variable">getFields</span> <span class="operator">=</span> client.prepareGet(<span class="string">&quot;fueen&quot;</span>, <span class="string">&quot;person&quot;</span>, <span class="string">&quot;1&quot;</span>).get();</span><br><span class="line">        System.out.println(getFields.getSource());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 更新</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testupdate</span><span class="params">()</span>&#123;</span><br><span class="line">        HashMap&lt;String, Object&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        map.put(<span class="string">&quot;id&quot;</span>,<span class="string">&quot;1&quot;</span>);</span><br><span class="line">        map.put(<span class="string">&quot;username&quot;</span>,<span class="string">&quot;这个世界会好吗&quot;</span>);</span><br><span class="line">        map.put(<span class="string">&quot;speak&quot;</span>,<span class="string">&quot;李志&quot;</span>);</span><br><span class="line">        <span class="type">UpdateRequestBuilder</span> <span class="variable">builder</span> <span class="operator">=</span> client.prepareUpdate(<span class="string">&quot;fueen&quot;</span>, <span class="string">&quot;person&quot;</span>, <span class="string">&quot;1&quot;</span>);</span><br><span class="line">        <span class="type">UpdateResponse</span> <span class="variable">updateResponse</span> <span class="operator">=</span> builder.setDoc(map).get();</span><br><span class="line">        System.out.println(updateResponse);</span><br><span class="line">        client.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 删除文档</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testdel</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">DeleteRequestBuilder</span> <span class="variable">del</span> <span class="operator">=</span> client.prepareDelete(<span class="string">&quot;fueen&quot;</span>, <span class="string">&quot;person&quot;</span>, <span class="string">&quot;1&quot;</span>);</span><br><span class="line">        <span class="type">DeleteResponse</span> <span class="variable">deleteResponse</span> <span class="operator">=</span> del.get();</span><br><span class="line">        System.out.println(deleteResponse);</span><br><span class="line">        client.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 批量添加</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testbulikadd</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">BulkRequestBuilder</span> <span class="variable">builder</span> <span class="operator">=</span> client.prepareBulk();</span><br><span class="line">        Map&lt;String, Object&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        map.put(<span class="string">&quot;id&quot;</span>,<span class="string">&quot;1&quot;</span>);</span><br><span class="line">        map.put(<span class="string">&quot;username&quot;</span>,<span class="string">&quot;会沉寂吗&quot;</span>);</span><br><span class="line">        map.put(<span class="string">&quot;speak&quot;</span>,<span class="string">&quot;我的金桔&quot;</span>);</span><br><span class="line">        builder.add(client.prepareIndex(<span class="string">&quot;fueen&quot;</span>,<span class="string">&quot;person&quot;</span>,<span class="string">&quot;1&quot;</span>)</span><br><span class="line">                .setSource(map));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        Map&lt;String, Object&gt; map1 = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        map1.put(<span class="string">&quot;id&quot;</span>,<span class="string">&quot;2&quot;</span>);</span><br><span class="line">        map1.put(<span class="string">&quot;username&quot;</span>,<span class="string">&quot;会沉寂吗&quot;</span>);</span><br><span class="line">        map1.put(<span class="string">&quot;speak&quot;</span>,<span class="string">&quot;人民不需要自由&quot;</span>);</span><br><span class="line">        builder.add(client.prepareIndex(<span class="string">&quot;fueen&quot;</span>,<span class="string">&quot;person&quot;</span>,<span class="string">&quot;2&quot;</span>)</span><br><span class="line">                .setSource(map1));</span><br><span class="line"></span><br><span class="line">        <span class="type">BulkResponse</span> <span class="variable">bulkItemResponses</span> <span class="operator">=</span> builder.get();</span><br><span class="line">        Iterator&lt;BulkItemResponse&gt; iterator = bulkItemResponses.iterator();</span><br><span class="line">        <span class="keyword">while</span> (iterator.hasNext())&#123;</span><br><span class="line">            <span class="type">BulkItemResponse</span> <span class="variable">next</span> <span class="operator">=</span> iterator.next();</span><br><span class="line">            System.out.println(next.getResponse());</span><br><span class="line">        &#125;</span><br><span class="line">        client.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 批量查询</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testbulikquery</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">SearchRequestBuilder</span> <span class="variable">fueen</span> <span class="operator">=</span> client.prepareSearch(<span class="string">&quot;fueen&quot;</span>);</span><br><span class="line">        fueen.setTypes(<span class="string">&quot;person&quot;</span>);</span><br><span class="line">        fueen.setFrom(<span class="number">0</span>);</span><br><span class="line">        fueen.setSize(<span class="number">10</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//查询条件</span></span><br><span class="line">        <span class="type">BoolQueryBuilder</span> <span class="variable">boolQueryBuilder</span> <span class="operator">=</span> QueryBuilders.boolQuery();</span><br><span class="line">        List&lt;QueryBuilder&gt; must = boolQueryBuilder.must();</span><br><span class="line">        must.add(QueryBuilders.matchQuery(<span class="string">&quot;username&quot;</span>,<span class="string">&quot;会沉寂吗&quot;</span>));</span><br><span class="line"></span><br><span class="line">        <span class="type">SearchResponse</span> <span class="variable">searchResponse</span> <span class="operator">=</span> fueen.setQuery(boolQueryBuilder).get();</span><br><span class="line">        <span class="type">SearchHits</span> <span class="variable">hits</span> <span class="operator">=</span> searchResponse.getHits();</span><br><span class="line">        System.out.println(<span class="string">&quot;条数:&quot;</span>+hits.getTotalHits());</span><br><span class="line">        hits.forEach(h-&gt;&#123;</span><br><span class="line">            System.out.println(h);</span><br><span class="line">        &#125;);</span><br><span class="line">        client.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+</div>
+        
+          <div class="post-copyright">
+                  <div class="copyright-item">
+                      <span> Author: Fueen</span>
+                  </div>
+                  <div class="copyright-item">
+                      <span> Link: <a href="https://ifueen.com/2019/11/22/life/ElasticSearch%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2%E7%9A%84%E4%BD%BF%E7%94%A8/">https://ifueen.com/2019/11/22/life/ElasticSearch%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2%E7%9A%84%E4%BD%BF%E7%94%A8/</a></span>
+                  </div>
+                  <div class="copyright-item">
+                      <span> License: 本博客所有文章除特别声明外，均采用许可协议 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> 转载请注明出处！</span>
+                  </div>
+          </div>
+        
+  </div>
+
+  <div class="share-reward">
+    <div class="share">
+        
+<div class="social-share" data-sites="facebook,twitter,wechat,weibo,qq"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script>
+
+
+      </div>
+        <div class="reward">
+          
+        </div>
+    </div>
+    
+    <div class="post_tags">
+      
+    </div>
+    <div class="post-nav">
+      
+        <div class="post-nav-prev post-nav-item">
+            <a href="/2020/02/07/life/%E8%AE%B0%E5%87%A0%E6%AC%A1Java%E9%9D%A2%E7%BB%8F/" >记几次Java面经<i class="fa fa-chevron-left"></i></a>
+        </div>
+      
+      
+        <div class="post-nav-next post-nav-item">
+            <a href="/2019/10/17/life/%E6%B0%B8%E8%BF%9C%E7%9A%84%E8%9D%B4%E8%9D%B6/" >永远的蝴蝶<i class="fa fa-chevron-right"></i></a>
+        </div>
+      
+    </div>
+      
+
+
+
+  <div id="valine"></div>
+  <script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+  <script>
+        new Valine({
+          el: '#valine',
+          appId: "",
+          appKey: "",
+          avatar: "mm",
+          lang: "",
+          meta: 'nick,mail,link'.split(','),
+          requiredFields: 'nick,mail'.split(','),
+          placeholder: "评论记得带上邮箱,你的留言我会马上收到邮箱提醒哒",
+          pageSize:'10',
+          recordIP: 'false',
+          serverURLs: "",
+          emojiCDN: "",
+          enableQQ: "true",
+        });
+  </script>
+  
+
+</article>
+
+    
+<a id="gotop" href="javascript:" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    
+
+
+
+
+
+
+    
+<div id="bottom-outer">
+    <div id="bottom-inner">
+        © 2019-2024 <i class="fa fa-heart" id="heart"></i> Fueen 
+        <br>
+        Powered by 
+        <a target="_blank" rel="noopener" href="http://hexo.io">hexo</a>
+        
+          <div class="icp-info">
+            
+          <a href="" target="_blank"> </a>
+        </div>
+        
+    </div>  
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/layui-src@2.5.5/dist/layui.min.js"></script>
+
+
+
+  
+    <script src="/js/script.js"></script>
+  
+    <script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script>
+  
+
+ 
+
+
+
+  <script>
+    window.lazyLoadOptions = {
+      elements_selector: 'img',
+      threshold: 0
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script>   
+  
+
+
+  <script>
+    var images = $('img').not('.nav-logo img').not('.card img').not($('a>img')).not('.reward-content img')
+    images.each(function (i, o) {
+      var lazyloadSrc = $(o).attr('data-src') ? $(o).attr('data-src') : $(o).attr('src')
+      $(o).wrap(`<a href="${lazyloadSrc}" data-fancybox="group" data-caption="${$(o).attr('alt')}" class="fancybox"></a>`)
+    })
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script>
+  <script>
+        $().fancybox({
+      selector: '[data-fancybox]',
+      loop: true,
+      transitionEffect: 'slide',
+      protect: true,
+      buttons: ['slideShow', 'fullScreen', 'thumbs', 'close']
+    })
+  </script>   
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script>
+  
+
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js"></script>
+<script>
+!function (e, t, a) {
+  var initCopyCode = function(){
+    var copyHtml = '';
+    copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+    copyHtml += '  <i class="fa fa-clipboard"></i><span>复制</span>';
+    copyHtml += '</button>';
+    $(".highlight .code pre").before(copyHtml);
+    new ClipboardJS('.btn-copy', {
+      target: function(trigger) {
+        return trigger.nextElementSibling;
+      }
+    });
+  }
+  initCopyCode();
+}(window, document);
+</script>  
+  
+
+<script>
+  var btntop = $('#gotop');
+  btntop.on('click', function (e) {
+    e.preventDefault();
+    $('html, body').animate({ scrollTop: 0 }, '300');
+  });
+
+  var $table = $('.content table').not($('figure.highlight > table'))
+$table.each(function () {
+  $(this).wrap('<div class="table-wrap"></div>')
+})
+</script>
+
+
+
+</html>

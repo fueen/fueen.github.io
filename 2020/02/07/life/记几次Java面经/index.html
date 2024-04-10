@@ -1,0 +1,404 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+      <meta name="author" content="Fueen">
+  
+  
+  
+      <meta name="description" content="他人即地狱">
+  
+  
+  
+    <link rel="alternate" href="/atom.xml " title="关山难越" type="application/atom+xml">
+  
+
+  
+
+  <title>记几次Java面经 | 关山难越</title>
+
+  
+
+  
+
+  
+
+  <link rel="stylesheet" href="/css/style.css" >
+  <link rel="stylesheet" href="/css/partial/dark.css" >
+
+  
+  
+  
+
+  
+    
+      <link rel="stylesheet" href="/css/partial/highlight/atom-one-light.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/a2396837/CDN@latest/css/iconfont.css">
+    
+  
+
+  
+    <script src="/js/todark.js"></script>
+    
+<meta name="generator" content="Hexo 7.1.1"></head>
+</html>
+    
+<div class="nav index" style="height: 60px;">
+    <div class="title animated fadeInDown">
+        <div class="layui-container">
+            <div class="nav-list">
+                
+                <ul class="layui-nav" lay-filter="">
+                    
+                        
+                        
+                        
+                        
+                    <li class="layui-nav-item">
+                        <a href="/ ">
+                            <i class=" 主页" style="color:;"></i>
+                            <span class="layui-nav-item-name">主页</span>
+                        </a>
+                    </li>
+                    
+                        
+                        
+                        
+                        
+                    <li class="layui-nav-item">
+                        <a href="/categories/生活/ ">
+                            <i class=" 生活" style="color:;"></i>
+                            <span class="layui-nav-item-name">生活</span>
+                        </a>
+                    </li>
+                    
+                        
+                        
+                        
+                        
+                    <li class="layui-nav-item">
+                        <a href="/categories/技术/ ">
+                            <i class=" 技术" style="color:;"></i>
+                            <span class="layui-nav-item-name">技术</span>
+                        </a>
+                    </li>
+                    
+                        
+                        
+                        
+                        
+                    <li class="layui-nav-item">
+                        <a href="/about/ ">
+                            <i class=" 关于" style="color:;"></i>
+                            <span class="layui-nav-item-name">关于</span>
+                        </a>
+                    </li>
+                    
+                    
+                        <li class="layui-nav-item" id="btn-toggle-dark">🌙</li>
+                    
+                    <span class="layui-nav-bar" style="left: 342px; top: 78px; width: 0px; opacity: 0;"></span>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+    
+<header class="header">
+        
+            <div class="logo">
+                    <a href="/"><img src="https://my-pic-1303449483.cos.ap-guangzhou.myqcloud.com/%E9%A3%9E%E4%B9%A620230227-111023.jpg" onerror=this.onerror=null,this.src="/img/loading.gif"></a>
+            </div>
+         
+    </div>
+     
+
+            <div class="motto">
+                <span>谁悲失路之人</span>
+            </div>
+    
+     
+</header>
+
+    
+<article id="post">
+  <div class="post-title">记几次Java面经</div>
+  
+<div class="post-meta">
+    
+    
+      <div class="post-meta-item date">
+        <span title="Created 2020.02.07"><i class="far fa-calendar-alt"></i> 2020.02.07</span>
+      </div>
+      <div class="post-meta-item updated">
+        <span title="Updated 2023.03.30"><i class="far fa-calendar-check"></i> 2023.03.30</span>
+      </div>
+     
+    
+      <div class="post-meta-item categories">
+        
+          <i class="fas fa-inbox article-meta__icon"></i> <a href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>
+        
+      </div>
+     
+    
+     <div class="post-meta-item wordcount">
+        
+          <i class="fas fa-pencil-alt"></i> <span class="post-count">1.6k words</span>
+           
+        
+          <i class="far fa-clock"></i> <span class="post-count">5 min</span>
+                               
+      </div>
+     
+</div>
+
+
+  
+  <div class="content">
+        <div><p>去年年底因为一些原因回到了四川，心里也打算在家乡有个稳定的发展，然后随即开始在成都找工作的准备<br>因为是年底的原因，好多公司都在忙着准备年会或者赶项目，所以岗位并不是很多，还是去了两家进行了面试<br>大概的过程基本上都差不多，都是进入填一下基本信息的表，写一些个人信息和自己的意向之类的，然后就开始等待面试</p>
+<blockquote>
+<p>A公司，首先是一个在职开发人员对我进行面试</p>
+</blockquote>
+<p>ES中如何创建索引？<br>描述一下Vue的模板？<br>谈一下微服务的理解？<br>项目中采用的路由策略是什么？</p>
+<span id="more"></span>
+
+<p>你们项目中代码生成技术为什么选Veclotry而不用MyBatisPlus自带的？<br>挨着回答了之后便让他们的架构过来对我进行一个面试，不得不说那个架构过来的时候气势很足啊</p>
+<p>首先让我做一个自我介绍<br>MyBatis和Hibernate最大区别？<br>前端了解多少？<br>之前为什么会去南京工作，然后又回来成都？<br>SpringMVC和SpringBoot的区别是什么？<br>SpringMVC比SpringBoot的优势有哪些？？</p>
+<blockquote>
+<p>这个我回答的很浅</p>
+</blockquote>
+<p>非关系型数据库了解哪些？<br>为什么对Redis做集群而不对MySQL做集群？<br>为什么Redis单线程却能承受那么高的并发？<br>Redis缓存击穿怎么解决？<br>你有什么想问我的？<br>然后问我期望薪资多少，之后通知我让我在这里等一会他去叫人事来和我谈一下<br>人事来了之后基本上就是对于薪资福利这方面情况进行说明，然后介绍了一下公司主要负责的业务方向，最后问了一些个人的信息情况<br>面试完后第二天给我打电话告诉我面试通过</p>
+<blockquote>
+<p>B公司</p>
+</blockquote>
+<p>自我介绍<br>介绍一下你上个公司的项目上线流程？<br>你们公司对Git的分支流是怎么规划的？<br>ES中如果要对一个关键字进行查找怎么做？<br>ES在你项目中怎么使用的?<br>有部署过项目吗?怎么做的?<br>了解Ningx吗？<br>Redis里面有哪些数据结构？<br>说一下EasyPOI怎么处理格式错误的文件<br>如果让你去开发一个接口，你讲一下你大体的步骤是怎么样的</p>
+<blockquote>
+<p>这里我忘了说接口校验的那一步了…</p>
+</blockquote>
+<p>说一下Shiro以及你是怎么去使用的<br>你们项目中的权限是怎么设计的？<br>讲一下你是怎么去使用百度地图API的？<br>rquestBody和requestParam有什么区别？<br>你项目中使用AOP生成日志是怎么去进行的?<br>你觉得你在哪方面比较擅长？<br>你还有什么想问我的吗？</p>
+<blockquote>
+<p>然后就叫人事过来进行交流，最后让我会去等通知，最后自然是凉了，让我有点郁闷，因为这家公司的面试我自我感觉是回答地要比上一家要好的，心里感觉应该都是十拿九稳的，结果就没消息了，让我有些郁闷…</p>
+</blockquote>
+<p>然后马上就过年了，基本上就没有去进行面试，回了老家过年<br>结果过年期间疫情爆发，病例越来越多，之前准备早点去成都的计划被打乱了，许多公司也手疫情的影响改为了在家办公，我也开始在网上投简历准备远程面试<br>说实话远程面试我自己心里还是有点别扭，总是感觉没有在现场效果那么好，总觉得有些怪怪的</p>
+<blockquote>
+<p>C公司是一家主要负责电商的</p>
+</blockquote>
+<p>自我介绍<br>为什么从上家公司离职？<br>你想从事的一个什么行业？<br>谈一下对未来的规划？<br>介绍一下工作经历？<br>在你项目中如果ES服务出现问题怎么办？<br>如果遇到单点故障怎么半？<br>项目QPS是多少？<br>考虑过系统性能问题吗？<br>项目中怎么使用Redis的？<br>前端使用过哪些技术框架？<br>谈一下SpringCloud？<br>服务之间调用怎么进行权限校验的？<br>Lambda了解多少？<br>面向对象和面向过程的区别？<br>谈一下你用过的设计模式？<br>除了Java自己还学过其他语言吗？<br>以前工作中怎样沟通的？<br>如果产生分歧怎么解决？<br>你还有什么想问我的？</p>
+<blockquote>
+<p>说实话过年期间代码接触的确实不多，虽然平时有时间也把也在复习相关的知识，但是总体来说手确实没有那么热了，当时面试的时候状态也不是很好，下来之后我就以为面试挂了，结果过了几天人事打电话过来通知说面试过了…</p>
+</blockquote>
+<blockquote>
+<p>D公司</p>
+</blockquote>
+<p>自我介绍<br>介绍一下SpringCloud？<br>RabbitMQ怎么解决重复消费的问题？<br>描述一下Redis用到的业务场景？<br>Redis常用的数据结构有哪些？<br>Redis为什么单线程却能够保证速度那么快？<br>Redis缓存雪崩，穿透，击穿怎么解决？<br>并发包下面熟悉哪些类？<br>ConcurrentHashMap为什么比HashTable效率高？<br>线程的生命周期？<br>SringBean的生命周期？<br>MySQL索引的类型有哪些？<br>介绍一下常用的设计模式？<br>Spring中用了哪些设计模式？<br>BeanFactory和FactoryBean有什么区别？<br>描述一下IOC和AOP？<br>依赖注入有哪些方式？<br>期望薪资是多少？<br>你还有什么想问我的吗？</p>
+<blockquote>
+<p>这家的面试基本比较顺畅，就是当时是电话面试的，然后自己的声音有一点沙哑….</p>
+</blockquote>
+<p>以上就是我最近经历的几个面试，回顾下来，需要学习的地方还是很多啊，平时工作的时候对于某一个技术光顾着去用，从而少了对深入的研究，希望以后能够在用这些技术的同时自己也能去进一步往底层的方面探索，说实话，2020年的开局真是很不好，希望大家都能够平安地度过，也祝愿自己能够朝着架构师的目标，一步一步，继续努力下去吧</p>
+</div>
+        
+          <div class="post-copyright">
+                  <div class="copyright-item">
+                      <span> Author: Fueen</span>
+                  </div>
+                  <div class="copyright-item">
+                      <span> Link: <a href="https://ifueen.com/2020/02/07/life/%E8%AE%B0%E5%87%A0%E6%AC%A1Java%E9%9D%A2%E7%BB%8F/">https://ifueen.com/2020/02/07/life/%E8%AE%B0%E5%87%A0%E6%AC%A1Java%E9%9D%A2%E7%BB%8F/</a></span>
+                  </div>
+                  <div class="copyright-item">
+                      <span> License: 本博客所有文章除特别声明外，均采用许可协议 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> 转载请注明出处！</span>
+                  </div>
+          </div>
+        
+  </div>
+
+  <div class="share-reward">
+    <div class="share">
+        
+<div class="social-share" data-sites="facebook,twitter,wechat,weibo,qq"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script>
+
+
+      </div>
+        <div class="reward">
+          
+        </div>
+    </div>
+    
+    <div class="post_tags">
+      
+    </div>
+    <div class="post-nav">
+      
+        <div class="post-nav-prev post-nav-item">
+            <a href="/2020/03/29/life/%E4%B8%B0%E5%AF%8C%E7%9A%84Java%E5%B7%A5%E5%85%B7%E7%B1%BB%E5%BA%93Hutool/" >丰富的Java工具类库Hutool<i class="fa fa-chevron-left"></i></a>
+        </div>
+      
+      
+        <div class="post-nav-next post-nav-item">
+            <a href="/2019/11/22/life/ElasticSearch%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2%E7%9A%84%E4%BD%BF%E7%94%A8/" >ElasticSearch全文搜索的使用<i class="fa fa-chevron-right"></i></a>
+        </div>
+      
+    </div>
+      
+
+
+
+  <div id="valine"></div>
+  <script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+  <script>
+        new Valine({
+          el: '#valine',
+          appId: "",
+          appKey: "",
+          avatar: "mm",
+          lang: "",
+          meta: 'nick,mail,link'.split(','),
+          requiredFields: 'nick,mail'.split(','),
+          placeholder: "评论记得带上邮箱,你的留言我会马上收到邮箱提醒哒",
+          pageSize:'10',
+          recordIP: 'false',
+          serverURLs: "",
+          emojiCDN: "",
+          enableQQ: "true",
+        });
+  </script>
+  
+
+</article>
+
+    
+<a id="gotop" href="javascript:" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    
+
+
+
+
+
+
+    
+<div id="bottom-outer">
+    <div id="bottom-inner">
+        © 2019-2024 <i class="fa fa-heart" id="heart"></i> Fueen 
+        <br>
+        Powered by 
+        <a target="_blank" rel="noopener" href="http://hexo.io">hexo</a>
+        
+          <div class="icp-info">
+            
+          <a href="" target="_blank"> </a>
+        </div>
+        
+    </div>  
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/layui-src@2.5.5/dist/layui.min.js"></script>
+
+
+
+  
+    <script src="/js/script.js"></script>
+  
+    <script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script>
+  
+
+ 
+
+
+
+  <script>
+    window.lazyLoadOptions = {
+      elements_selector: 'img',
+      threshold: 0
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script>   
+  
+
+
+  <script>
+    var images = $('img').not('.nav-logo img').not('.card img').not($('a>img')).not('.reward-content img')
+    images.each(function (i, o) {
+      var lazyloadSrc = $(o).attr('data-src') ? $(o).attr('data-src') : $(o).attr('src')
+      $(o).wrap(`<a href="${lazyloadSrc}" data-fancybox="group" data-caption="${$(o).attr('alt')}" class="fancybox"></a>`)
+    })
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script>
+  <script>
+        $().fancybox({
+      selector: '[data-fancybox]',
+      loop: true,
+      transitionEffect: 'slide',
+      protect: true,
+      buttons: ['slideShow', 'fullScreen', 'thumbs', 'close']
+    })
+  </script>   
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script>
+  
+
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js"></script>
+<script>
+!function (e, t, a) {
+  var initCopyCode = function(){
+    var copyHtml = '';
+    copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+    copyHtml += '  <i class="fa fa-clipboard"></i><span>复制</span>';
+    copyHtml += '</button>';
+    $(".highlight .code pre").before(copyHtml);
+    new ClipboardJS('.btn-copy', {
+      target: function(trigger) {
+        return trigger.nextElementSibling;
+      }
+    });
+  }
+  initCopyCode();
+}(window, document);
+</script>  
+  
+
+<script>
+  var btntop = $('#gotop');
+  btntop.on('click', function (e) {
+    e.preventDefault();
+    $('html, body').animate({ scrollTop: 0 }, '300');
+  });
+
+  var $table = $('.content table').not($('figure.highlight > table'))
+$table.each(function () {
+  $(this).wrap('<div class="table-wrap"></div>')
+})
+</script>
+
+
+
+</html>

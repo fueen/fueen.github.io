@@ -1,0 +1,374 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+      <meta name="author" content="Fueen">
+  
+  
+  
+      <meta name="description" content="他人即地狱">
+  
+  
+  
+    <link rel="alternate" href="/atom.xml " title="关山难越" type="application/atom+xml">
+  
+
+  
+
+  <title>多租户权限过滤查询-基于mybatisplus权限插件DataPermissionInterceptor实现 | 关山难越</title>
+
+  
+
+  
+
+  
+
+  <link rel="stylesheet" href="/css/style.css" >
+  <link rel="stylesheet" href="/css/partial/dark.css" >
+
+  
+  
+  
+
+  
+    
+      <link rel="stylesheet" href="/css/partial/highlight/atom-one-light.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/a2396837/CDN@latest/css/iconfont.css">
+    
+  
+
+  
+    <script src="/js/todark.js"></script>
+    
+<meta name="generator" content="Hexo 7.1.1"></head>
+</html>
+    
+<div class="nav index" style="height: 60px;">
+    <div class="title animated fadeInDown">
+        <div class="layui-container">
+            <div class="nav-list">
+                
+                <ul class="layui-nav" lay-filter="">
+                    
+                        
+                        
+                        
+                        
+                    <li class="layui-nav-item">
+                        <a href="/ ">
+                            <i class=" 主页" style="color:;"></i>
+                            <span class="layui-nav-item-name">主页</span>
+                        </a>
+                    </li>
+                    
+                        
+                        
+                        
+                        
+                    <li class="layui-nav-item">
+                        <a href="/categories/生活/ ">
+                            <i class=" 生活" style="color:;"></i>
+                            <span class="layui-nav-item-name">生活</span>
+                        </a>
+                    </li>
+                    
+                        
+                        
+                        
+                        
+                    <li class="layui-nav-item">
+                        <a href="/categories/技术/ ">
+                            <i class=" 技术" style="color:;"></i>
+                            <span class="layui-nav-item-name">技术</span>
+                        </a>
+                    </li>
+                    
+                        
+                        
+                        
+                        
+                    <li class="layui-nav-item">
+                        <a href="/about/ ">
+                            <i class=" 关于" style="color:;"></i>
+                            <span class="layui-nav-item-name">关于</span>
+                        </a>
+                    </li>
+                    
+                    
+                        <li class="layui-nav-item" id="btn-toggle-dark">🌙</li>
+                    
+                    <span class="layui-nav-bar" style="left: 342px; top: 78px; width: 0px; opacity: 0;"></span>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+    
+<header class="header">
+        
+            <div class="logo">
+                    <a href="/"><img src="https://my-pic-1303449483.cos.ap-guangzhou.myqcloud.com/%E9%A3%9E%E4%B9%A620230227-111023.jpg" onerror=this.onerror=null,this.src="/img/loading.gif"></a>
+            </div>
+         
+    </div>
+     
+
+            <div class="motto">
+                <span>谁悲失路之人</span>
+            </div>
+    
+     
+</header>
+
+    
+<article id="post">
+  <div class="post-title">多租户权限过滤查询-基于mybatisplus权限插件DataPermissionInterceptor实现</div>
+  
+<div class="post-meta">
+    
+    
+      <div class="post-meta-item date">
+        <span title="Created 2024.02.23"><i class="far fa-calendar-alt"></i> 2024.02.23</span>
+      </div>
+      <div class="post-meta-item updated">
+        <span title="Updated 2024.04.10"><i class="far fa-calendar-check"></i> 2024.04.10</span>
+      </div>
+     
+    
+      <div class="post-meta-item categories">
+        
+          <i class="fas fa-inbox article-meta__icon"></i> <a href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
+        
+      </div>
+     
+    
+     <div class="post-meta-item wordcount">
+        
+          <i class="fas fa-pencil-alt"></i> <span class="post-count">1.1k words</span>
+           
+        
+          <i class="far fa-clock"></i> <span class="post-count">5 min</span>
+                               
+      </div>
+     
+</div>
+
+
+  
+  <div class="content">
+        <div><blockquote>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>因为业务需要对系统中的相关模块的权限通过不同的部门这种属性进行过滤，这边参考了开源项目ruoyi里面的权限过滤设计，然后结合自身的业务进行实现<br>优秀的开源项目地址:<a target="_blank" rel="noopener" href="https://gitee.com/zhijiantianya/ruoyi-vue-pro">ruoyi-vue-pro </a><br>梳理了解了逻辑之后总结了一下实现原理，在需要进行权限过滤的表中新增类似dept_id的字段(可根据自身业务替换成其他字段)，然后通过自定义DataPermissionInterceptor，继承JsqlParserSupport中的方法进行覆写，里面自己根据业务进行过滤的逻辑，最终达到目的</p>
+<span id="more"></span>
+
+<p>下面通过自身的一个案例进行说明，需要达到的效果是根据不同的用户所在的部门查看不同部门下面的数据</p>
+<h3 id="实现案例"><a href="#实现案例" class="headerlink" title="实现案例"></a>实现案例</h3><p>1.首先在相关的表上创建字段dept_id<br>2.自定义Interceptor，继承JsqlParserSupport并覆写逻辑</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 部门数据权限查询过滤</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DeptPermissionInterceptor</span> <span class="keyword">extends</span> <span class="title class_">JsqlParserSupport</span> <span class="keyword">implements</span> <span class="title class_">InnerInterceptor</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">beforeQuery</span><span class="params">(Executor executor, MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql)</span> <span class="keyword">throws</span> SQLException &#123;</span><br><span class="line">        <span class="keyword">if</span> (InterceptorIgnoreHelper.willIgnoreDataPermission(ms.getId())) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        PluginUtils.<span class="type">MPBoundSql</span> <span class="variable">mpBs</span> <span class="operator">=</span> PluginUtils.mpBoundSql(boundSql);</span><br><span class="line">        mpBs.sql(<span class="built_in">this</span>.parserSingle(mpBs.sql(), ms.getId()));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">processSelect</span><span class="params">(Select select, <span class="type">int</span> index, String sql, Object obj)</span> &#123;</span><br><span class="line">        <span class="type">SelectBody</span> <span class="variable">selectBody</span> <span class="operator">=</span> select.getSelectBody();</span><br><span class="line">        <span class="keyword">if</span> (selectBody <span class="keyword">instanceof</span> PlainSelect) &#123;</span><br><span class="line">            <span class="built_in">this</span>.setWhere((PlainSelect) selectBody, (String) obj);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (selectBody <span class="keyword">instanceof</span> SetOperationList) &#123;</span><br><span class="line">            <span class="type">SetOperationList</span> <span class="variable">setOperationList</span> <span class="operator">=</span> (SetOperationList) selectBody;</span><br><span class="line">            List&lt;SelectBody&gt; selectBodyList = setOperationList.getSelects();</span><br><span class="line">            selectBodyList.forEach(s -&gt; <span class="built_in">this</span>.setWhere((PlainSelect) s, (String) obj));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 设置 where 条件</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> plainSelect  查询对象</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> whereSegment 查询条件片段</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">setWhere</span><span class="params">(PlainSelect plainSelect, String whereSegment)</span> &#123;</span><br><span class="line">        <span class="type">Expression</span> <span class="variable">sqlSegment</span> <span class="operator">=</span> getSqlSegment(plainSelect, whereSegment);</span><br><span class="line">        <span class="keyword">if</span> (<span class="literal">null</span> != sqlSegment) &#123;</span><br><span class="line">            plainSelect.setWhere(sqlSegment);</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@SneakyThrows(Exception.class)</span></span><br><span class="line">    <span class="keyword">private</span> Expression <span class="title function_">getSqlSegment</span><span class="params">(PlainSelect plainSelect, String whereSegment)</span> &#123;</span><br><span class="line">        <span class="type">Expression</span> <span class="variable">where</span> <span class="operator">=</span> plainSelect.getWhere();</span><br><span class="line">        <span class="keyword">if</span> (where == <span class="literal">null</span>) &#123;</span><br><span class="line">            where = <span class="keyword">new</span> <span class="title class_">HexValue</span>(<span class="string">&quot; 1 = 1 &quot;</span>);</span><br><span class="line">       &#125;</span><br><span class="line">        <span class="comment">//获取当前用户信息(根据自身业务信息来)</span></span><br><span class="line">       <span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> userReq.getUser();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//获取mapper名称</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">className</span> <span class="operator">=</span> whereSegment.substring(<span class="number">0</span>, whereSegment.lastIndexOf(<span class="string">&quot;.&quot;</span>));</span><br><span class="line">        <span class="type">FromItem</span> <span class="variable">fromItem</span> <span class="operator">=</span> plainSelect.getFromItem();</span><br><span class="line">        <span class="type">String</span> <span class="variable">mainTableName</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">if</span> (fromItem <span class="keyword">instanceof</span> Table) &#123;</span><br><span class="line">            <span class="type">Table</span> <span class="variable">fromItem1</span> <span class="operator">=</span> (Table) plainSelect.getFromItem();</span><br><span class="line">            <span class="type">Alias</span> <span class="variable">fromItemAlias</span> <span class="operator">=</span> fromItem.getAlias();</span><br><span class="line">            mainTableName = fromItemAlias == <span class="literal">null</span> ? fromItem1.getName() : fromItemAlias.getName();</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (fromItem <span class="keyword">instanceof</span> SubSelect) &#123;</span><br><span class="line">            <span class="type">SubSelect</span> <span class="variable">fromItem1</span> <span class="operator">=</span> (SubSelect) plainSelect.getFromItem();</span><br><span class="line">            <span class="type">Alias</span> <span class="variable">fromItemAlias</span> <span class="operator">=</span> fromItem1.getAlias();</span><br><span class="line">            <span class="type">PlainSelect</span> <span class="variable">selectBody</span> <span class="operator">=</span> (PlainSelect) fromItem1.getSelectBody();</span><br><span class="line">            <span class="type">FromItem</span> <span class="variable">subFromItem</span> <span class="operator">=</span> selectBody.getFromItem();</span><br><span class="line">            <span class="keyword">if</span> (subFromItem <span class="keyword">instanceof</span> Table)&#123;</span><br><span class="line">                <span class="type">Table</span> <span class="variable">fromItem2</span> <span class="operator">=</span> (Table) selectBody.getFromItem();</span><br><span class="line">                mainTableName = fromItemAlias == <span class="literal">null</span> ? fromItem2.getName() : fromItemAlias.getName();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//部门权限过滤</span></span><br><span class="line">        <span class="keyword">if</span> (ObjectUtil.isNotEmpty(user))&#123;</span><br><span class="line">            List&lt;String&gt; deptId = user.getVisibleDeptId();</span><br><span class="line">            <span class="keyword">if</span> (<span class="literal">null</span> != deptId &amp;&amp; deptId.size() &gt; <span class="number">0</span>)&#123;</span><br><span class="line">                <span class="comment">//把list转换成JSQLParser需要的元素列表</span></span><br><span class="line">                <span class="type">ItemsList</span> <span class="variable">itemList</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ExpressionList</span>(deptId.stream().map(StringValue::<span class="keyword">new</span>).collect(Collectors.toList()));</span><br><span class="line">                <span class="comment">//构建in表达式</span></span><br><span class="line">                <span class="type">InExpression</span> <span class="variable">inExpression</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">InExpression</span>(<span class="keyword">new</span> <span class="title class_">Column</span>(<span class="string">&quot;表名.dept_id&quot;</span>),itemList);</span><br><span class="line">                <span class="type">Parenthesis</span> <span class="variable">parenthesis</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Parenthesis</span>(inExpression);</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">AndExpression</span>(where, parenthesis);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> where;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>3.再自定义新增的Permission实现新增时部门id自动插入，这个可以酌情考虑要不要添加</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 部门数据新增过滤</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DeptInsertInterceptor</span> <span class="keyword">extends</span> <span class="title class_">JsqlParserSupport</span> <span class="keyword">implements</span> <span class="title class_">InnerInterceptor</span>&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">beforePrepare</span><span class="params">(StatementHandler sh, Connection connection, Integer transactionTimeout)</span> &#123;</span><br><span class="line">        PluginUtils.<span class="type">MPStatementHandler</span> <span class="variable">mpSh</span> <span class="operator">=</span> PluginUtils.mpStatementHandler(sh);</span><br><span class="line">        <span class="type">MappedStatement</span> <span class="variable">ms</span> <span class="operator">=</span> mpSh.mappedStatement();</span><br><span class="line">        <span class="type">SqlCommandType</span> <span class="variable">sct</span> <span class="operator">=</span> ms.getSqlCommandType();</span><br><span class="line">        <span class="keyword">if</span> (sct == SqlCommandType.INSERT) &#123;</span><br><span class="line">            <span class="comment">//用来判断是否不需要插入该字段</span></span><br><span class="line">            PluginUtils.<span class="type">MPBoundSql</span> <span class="variable">mpBs</span> <span class="operator">=</span> mpSh.mPBoundSql();</span><br><span class="line">                mpBs.sql(parserMulti(mpBs.sql(), <span class="literal">null</span>));</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">processInsert</span><span class="params">(Insert insert, <span class="type">int</span> index, String sql, Object obj)</span> &#123;</span><br><span class="line">        <span class="comment">//获取登录用户信息  可根据自身情况获取</span></span><br><span class="line">        <span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> UserReq.getUser();</span><br><span class="line">        <span class="keyword">if</span> (ObjectUtil.isEmpty(user) || StringUtils.isBlank(user.getDeptId()))&#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        List&lt;Column&gt; columns = insert.getColumns();</span><br><span class="line">        <span class="keyword">if</span> (CollectionUtils.isEmpty(columns)) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        columns.add(<span class="keyword">new</span> <span class="title class_">Column</span>(<span class="string">&quot;dept_id&quot;</span>));</span><br><span class="line"></span><br><span class="line">        <span class="type">StringValue</span> <span class="variable">deptIdVlaue</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringValue</span>(user.getDeptId());</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="literal">null</span> != insert.getItemsList()) &#123;</span><br><span class="line">            <span class="type">ItemsList</span> <span class="variable">itemsList</span> <span class="operator">=</span> insert.getItemsList();</span><br><span class="line">            <span class="keyword">if</span> (itemsList <span class="keyword">instanceof</span> MultiExpressionList) &#123;</span><br><span class="line">                ((MultiExpressionList) itemsList).getExpressionLists().forEach(el -&gt; el.getExpressions().add(deptIdVlaue));</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                ((ExpressionList) itemsList).getExpressions().add(deptIdVlaue);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">throw</span> ExceptionUtils.mpe(<span class="string">&quot;Failed to process multiple-table update, please exclude the tableName or statementId&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">/*@Override</span></span><br><span class="line"><span class="comment">    public void setProperties(Properties properties) &#123;</span></span><br><span class="line"><span class="comment">        PropertyMapper.newInstance(properties).whenNotBlank(&quot;rootDeptInsertHandler&quot;,</span></span><br><span class="line"><span class="comment">                ClassUtils::newInstance, this::setRootDeptInsertHandler);</span></span><br><span class="line"><span class="comment">    &#125;*/</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>3.再将定义好的Interceptor加入到myBatisPlus中</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@MapperScan(value = &quot;com.test.**.mapper&quot;)</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MybatisPlusConfig</span> &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  </span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> MybatisPlusInterceptor <span class="title function_">mybatisPlusInterceptor</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">MybatisPlusInterceptor</span> <span class="variable">interceptor</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MybatisPlusInterceptor</span>();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//部门id新增过滤 没有这个可以不加</span></span><br><span class="line">        interceptor.addInnerInterceptor(<span class="keyword">new</span> <span class="title class_">DeptInsertInterceptor</span>());</span><br><span class="line"></span><br><span class="line">        <span class="comment">//部门权限过滤 </span></span><br><span class="line">        interceptor.addInnerInterceptor(<span class="keyword">new</span> <span class="title class_">DeptPermissionInterceptor</span>());</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        interceptor.addInnerInterceptor(<span class="keyword">new</span> <span class="title class_">PaginationInnerInterceptor</span>(DbType.MYSQL));</span><br><span class="line">        <span class="keyword">return</span> interceptor;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4.然后操作相关业务的增加和查询，通过日志打印便能看到自动插入了dept_id的字段过滤<br>结果：<br><img src= "/img/loading.gif" data-src="D:\blog\source_posts\skill\images\5cf70bc83263433ea70001a79aa7731e.png"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这里其实就是用到了mybatisplus中的DataPermissionInterceptor插件原理来对自己新增或者查询的sql做了一次拦截，然后在中途根据自己的业务进行一些修改即可实现，有相同业务需求的可以参考一下</p>
+</blockquote>
+</div>
+        
+          <div class="post-copyright">
+                  <div class="copyright-item">
+                      <span> Author: Fueen</span>
+                  </div>
+                  <div class="copyright-item">
+                      <span> Link: <a href="https://ifueen.com/2024/02/23/skill/%E5%A4%9A%E7%A7%9F%E6%88%B7%E6%9D%83%E9%99%90%E8%BF%87%E6%BB%A4%E6%9F%A5%E8%AF%A2/">https://ifueen.com/2024/02/23/skill/%E5%A4%9A%E7%A7%9F%E6%88%B7%E6%9D%83%E9%99%90%E8%BF%87%E6%BB%A4%E6%9F%A5%E8%AF%A2/</a></span>
+                  </div>
+                  <div class="copyright-item">
+                      <span> License: 本博客所有文章除特别声明外，均采用许可协议 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> 转载请注明出处！</span>
+                  </div>
+          </div>
+        
+  </div>
+
+  <div class="share-reward">
+    <div class="share">
+        
+<div class="social-share" data-sites="facebook,twitter,wechat,weibo,qq"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script>
+
+
+      </div>
+        <div class="reward">
+          
+        </div>
+    </div>
+    
+    <div class="post_tags">
+      
+    </div>
+    <div class="post-nav">
+      
+      
+        <div class="post-nav-next post-nav-item">
+            <a href="/2023/11/30/skill/Java%E9%80%9A%E8%BF%87Redis%E8%BF%9B%E8%A1%8C%E5%BB%B6%E6%97%B6%E9%98%9F%E5%88%97%EF%BC%8C%E5%AE%9A%E6%97%B6%E5%8F%91%E5%B8%83%E6%B6%88%E6%81%AF(%E6%A0%B9%E6%8D%AE%E7%94%A8%E6%88%B7%E9%80%89%E6%8B%A9%E6%97%B6%E9%97%B4%E8%BF%9B%E8%A1%8C%E5%8F%91%E5%B8%83)/" >Java通过Redis进行延时队列，定时发布消息(根据用户选择时间进行发布)<i class="fa fa-chevron-right"></i></a>
+        </div>
+      
+    </div>
+      
+
+
+
+  <div id="valine"></div>
+  <script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+  <script>
+        new Valine({
+          el: '#valine',
+          appId: "",
+          appKey: "",
+          avatar: "mm",
+          lang: "",
+          meta: 'nick,mail,link'.split(','),
+          requiredFields: 'nick,mail'.split(','),
+          placeholder: "评论记得带上邮箱,你的留言我会马上收到邮箱提醒哒",
+          pageSize:'10',
+          recordIP: 'false',
+          serverURLs: "",
+          emojiCDN: "",
+          enableQQ: "true",
+        });
+  </script>
+  
+
+</article>
+
+    
+<a id="gotop" href="javascript:" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    
+
+
+
+
+
+
+    
+<div id="bottom-outer">
+    <div id="bottom-inner">
+        © 2019-2024 <i class="fa fa-heart" id="heart"></i> Fueen 
+        <br>
+        Powered by 
+        <a target="_blank" rel="noopener" href="http://hexo.io">hexo</a>
+        
+          <div class="icp-info">
+            
+          <a href="" target="_blank"> </a>
+        </div>
+        
+    </div>  
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/layui-src@2.5.5/dist/layui.min.js"></script>
+
+
+
+  
+    <script src="/js/script.js"></script>
+  
+    <script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script>
+  
+
+ 
+
+
+
+  <script>
+    window.lazyLoadOptions = {
+      elements_selector: 'img',
+      threshold: 0
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script>   
+  
+
+
+  <script>
+    var images = $('img').not('.nav-logo img').not('.card img').not($('a>img')).not('.reward-content img')
+    images.each(function (i, o) {
+      var lazyloadSrc = $(o).attr('data-src') ? $(o).attr('data-src') : $(o).attr('src')
+      $(o).wrap(`<a href="${lazyloadSrc}" data-fancybox="group" data-caption="${$(o).attr('alt')}" class="fancybox"></a>`)
+    })
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script>
+  <script>
+        $().fancybox({
+      selector: '[data-fancybox]',
+      loop: true,
+      transitionEffect: 'slide',
+      protect: true,
+      buttons: ['slideShow', 'fullScreen', 'thumbs', 'close']
+    })
+  </script>   
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script>
+  
+
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js"></script>
+<script>
+!function (e, t, a) {
+  var initCopyCode = function(){
+    var copyHtml = '';
+    copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+    copyHtml += '  <i class="fa fa-clipboard"></i><span>复制</span>';
+    copyHtml += '</button>';
+    $(".highlight .code pre").before(copyHtml);
+    new ClipboardJS('.btn-copy', {
+      target: function(trigger) {
+        return trigger.nextElementSibling;
+      }
+    });
+  }
+  initCopyCode();
+}(window, document);
+</script>  
+  
+
+<script>
+  var btntop = $('#gotop');
+  btntop.on('click', function (e) {
+    e.preventDefault();
+    $('html, body').animate({ scrollTop: 0 }, '300');
+  });
+
+  var $table = $('.content table').not($('figure.highlight > table'))
+$table.each(function () {
+  $(this).wrap('<div class="table-wrap"></div>')
+})
+</script>
+
+
+
+</html>
